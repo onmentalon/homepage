@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멘탈온(Mental ON) - O2O 코칭 파일럿 초청</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#F4F9F5', // 은은한 그린 배경
+                            dark: '#152C5B',  // 짙은 네이비 블루 (비즈니스 톤)
+                            blue: '#1D4ED8',  // 액션 유도용 짙은 블루
+                            yellow: '#DCC34C' // 머스타드 옐로우 포인트 (과거 앱 폴더 색상)
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        
+        /* 은은한 배경 패턴 */
+        .hero-pattern {
+            background-color: #F4F9F5;
+            background-image: radial-gradient(#152C5B 0.5px, transparent 0.5px), radial-gradient(#152C5B 0.5px, #F4F9F5 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        
+        /* 도형 호버 애니메이션 설정 */
+        .shape-hover:hover .shape-element {
+            transform: scale(1.15) rotate(15deg);
+        }
+        .shape-element {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 아코디언(FAQ) 애니메이션 */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: sweep .3s ease-in-out; }
+        @keyframes sweep {
+            0%    {opacity: 0; transform: translateY(-10px)}
+            100%  {opacity: 1; transform: translateY(0)}
+        }
+
+        /* 모달 애니메이션 */
+        .modal-enter { opacity: 1; transform: scale(1); pointer-events: auto; }
+        .modal-leave { opacity: 0; transform: scale(0.95); pointer-events: none; }
+        #toolkit-modal-backdrop, #webinar-modal-backdrop { transition: opacity 0.3s ease; }
+        #toolkit-modal-content, #webinar-modal-content { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="font-sans text-brand-dark antialiased bg-brand-light relative">
+
+    <header id="top" class="hero-pattern pt-20 pb-24 px-4 relative overflow-hidden border-b border-gray-200">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- 좌측: 메인 카피 영역 -->
+                <div class="lg:col-span-7 text-center lg:text-left pt-4">
+                    <span class="bg-brand-dark text-white text-sm md:text-base font-bold px-5 py-2 rounded-full mb-6 inline-block shadow-md border border-brand-dark/20">
+                        ✨ 멘탈온 실물 교재 활용 코치 한정, VIP 파일럿 초청
+                    </span>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight drop-shadow-sm text-brand-dark tracking-tight">
+                        오프라인 코칭의 깊이,<br>디지털의 확장력으로 연결하다.
+                    </h1>
+                    <p class="text-lg md:text-xl mb-10 font-medium text-brand-dark/80 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        멘탈온 루틴북과 FT카드를 활용 중인 전문 코치님들을 위한 특별한 기회.<br>
+                        실물 교재와 전용 앱을 연계하여 코칭 만족도와 <strong class="text-brand-blue">고객 유지율(Retention)</strong>을 압도적으로 높여보세요.
+                    </p>
+                    
+                    <div class="justify-center lg:justify-start gap-4 hidden md:flex">
+                         <a href="#toolkit" class="text-brand-dark font-bold py-3 px-8 rounded-xl transition-all text-lg border-2 border-brand-dark hover:bg-brand-dark hover:text-white flex items-center gap-2 group">
+                            <span>O2O 코칭 시스템 살펴보기</span>
+                            <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 우측: 온라인 설명회 초대장 -->
+                <div class="lg:col-span-5 relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-yellow to-yellow-200 rounded-[2rem] blur opacity-30"></div>
+                    <div class="bg-brand-dark rounded-3xl p-1 shadow-2xl relative overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+                        
+                        <div class="bg-[#152C5B] border border-blue-900/50 rounded-[1.8rem] p-8 md:p-10 text-white relative z-10 flex flex-col h-full">
+                            <div class="text-center mb-6">
+                                <span class="bg-blue-900/50 text-brand-yellow border border-brand-yellow/30 font-bold tracking-widest text-xs py-1 px-3 rounded-full mb-4 inline-block">VIP INVITATION</span>
+                                <h2 class="text-2xl md:text-3xl font-black leading-tight">
+                                    멘탈온 O2O 파일럿<br>
+                                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-yellow to-yellow-200">런칭 온라인 설명회</span>
+                                </h2>
+                            </div>
+                            
+                            <ul class="space-y-4 mb-8 text-sm md:text-base font-medium">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-brand-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <span class="text-gray-100">앱과 루틴북 연계 실전 시연 (주 7회 밀착 케어)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-brand-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <span class="text-gray-100">파일럿 참여 코칭펌 한정 <strong class="text-brand-yellow">앱 무료 이용권 제공</strong></span>
+                                </li>
+                            </ul>
+
+                            <div class="bg-[#0f2146] p-5 rounded-2xl border border-white/10 text-center mb-6 relative overflow-hidden shadow-inner">
+                                <div class="text-blue-200 text-sm mb-2 font-medium">일시 (Zoom Live / 총 2회차 중 택 1)</div>
+                                <div class="text-xl md:text-2xl font-bold text-white mb-1">26. 8. 9 (일) / 8. 10 (월)</div>
+                                <div class="text-xl text-brand-yellow font-black">PM 08:00</div>
+                            </div>
+                            
+                            <!-- 참여 조건 추가 -->
+                            <div class="bg-blue-900/40 border border-blue-400/30 rounded-xl p-4 mb-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-5 h-5 text-brand-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <span class="text-white font-bold text-sm">설명회 참여 조건</span>
+                                </div>
+                                <p class="text-gray-300 text-xs leading-relaxed mb-2">
+                                    멘탈온 시리즈(멘탈FT카드 또는 멘탈루틴북) 보유 코치님에 한해 참여 가능합니다.
+                                </p>
+                                <p class="text-brand-yellow text-xs font-medium">
+                                    * 미보유 시, 설명회 전까지 실물 교재를 구매하시면 정상 참여하실 수 있습니다.
+                                </p>
+                            </div>
+
+                            <button onclick="openWebinarModal()" class="w-full bg-brand-blue hover:bg-blue-600 text-white font-black py-4 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(29,78,216,0.5)] hover:shadow-[0_0_25px_rgba(29,78,216,0.7)] text-lg border border-blue-400/30">
+                                무료 설명회 신청하기
+                            </button>
+                            <p class="text-center text-xs text-brand-yellow/80 mt-4 font-medium">* 선착순 마감으로 조기 종료될 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+
+    <section id="benefits" class="py-20 px-4 bg-white relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-brand-blue font-bold tracking-widest text-sm mb-3 block">WHY MENTAL ON O2O?</span>
+                <h2 class="text-3xl md:text-4xl font-black text-brand-dark mb-4">코칭 비즈니스에 가져올 3가지 확실한 변화</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-brand-light rounded-2xl p-8 border border-brand-dark/5 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">압도적인 신규 고객 유치</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">'멘탈 코칭'과 '전용 앱'을 전면에 부각해 보세요. 막연했던 코칭이 눈에 보이는 프리미엄 시스템으로 탈바꿈하여, 타겟 고객의 신뢰를 얻고 상담 등록률을 획기적으로 높여줍니다.</p>
+                </div>
+                
+                <div class="bg-brand-light rounded-2xl p-8 border border-brand-dark/5 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-brand-yellow/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-brand-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">고객 이탈 방지 (Retention)</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">주 1회 코칭 세션의 공백을 앱과 루틴북으로 밀착 케어합니다. 고객의 중도 포기를 방지하고, 일상적인 연결감을 통해 장기 재결제율을 비약적으로 높입니다.</p>
+                </div>
+
+                <div class="bg-brand-light rounded-2xl p-8 border border-brand-dark/5 text-center hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">객관적 성과 입증</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">멘탈지수 사전/사후 검사 데이터를 통해 코칭의 실질적인 효과를 수치로 증명합니다. 눈에 보이는 결과는 코칭펌의 독보적인 경쟁력이자 확고한 레퍼런스가 됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="toolkit" class="py-24 px-4 bg-brand-dark relative z-10">
+        <div class="max-w-6xl mx-auto">
+            
+            <div class="text-center mb-16">
+                <span class="text-brand-yellow font-bold tracking-widest text-sm mb-3 block">MENTAL ON O2O TOOLKIT</span>
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-4">고객의 성장을 이끄는 4단계 통합 시스템</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto mb-2">
+                    각 단계를 클릭하여 디지털 앱이 제공하는 핵심 기능과 효과를 확인해 보세요.
+                </p>
+                <p class="text-brand-yellow/80 text-sm font-medium animate-pulse">👇 카드를 클릭하면 상세 기능이 열립니다 👇</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+                
+                <!-- Step 1. 멘탈FT카드 (클릭 이벤트 추가) -->
+                <button onclick="openToolkitModal('step1')" class="text-left bg-white rounded-2xl overflow-hidden shadow-lg flex flex-col shape-hover group transform transition-all hover:-translate-y-2 hover:shadow-2xl hover:ring-4 ring-brand-blue/30 focus:outline-none">
+                    <div class="h-[33%] bg-[#F8F9FC] p-6 flex justify-between items-center border-b border-gray-100 relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h3 class="text-2xl font-black text-brand-dark tracking-tight">Step 1. 멘탈FT카드</h3>
+                            <p class="text-sm font-bold text-brand-blue mt-1 tracking-widest">CONNECTION</p>
+                        </div>
+                        <div class="shape-element w-16 h-16 bg-blue-100 rounded-2xl rotate-12 flex items-center justify-center opacity-80 relative z-10">
+                            <div class="w-8 h-8 border-4 border-brand-blue rounded-full"></div>
+                        </div>
+                    </div>
+                    <div class="h-[67%] p-6 flex flex-col justify-between bg-white">
+                        <div>
+                            <p class="text-gray-600 text-[15px] leading-relaxed font-medium mb-5">
+                                대면/비대면 세션 모두 활용 가능한 인사이트 도출 툴입니다. 고객의 닫힌 마음을 열고 생각의 방향을 정렬하여, 코칭 세션의 몰입도를 극대화합니다.
+                            </p>
+                            <ul class="space-y-2.5 text-sm text-gray-500 font-bold mb-4">
+                                <li class="flex items-center gap-3"><i class="w-1.5 h-1.5 rounded-full bg-brand-blue"></i>주제별 멘탈코칭 & 그룹/팀코칭 지원</li>
+                                <li class="flex items-center gap-3"><i class="w-1.5 h-1.5 rounded-full bg-brand-blue"></i>1분/5분 루틴 셀프코칭 기능</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-brand-blue font-bold text-sm">
+                            <span>기능 자세히 보기</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                    </div>
+                </button>
+
+                <!-- Step 2. 멘탈회복50일 -->
+                <button onclick="openToolkitModal('step2')" class="text-left bg-white rounded-2xl overflow-hidden shadow-lg flex flex-col shape-hover group transform transition-all hover:-translate-y-2 hover:shadow-2xl hover:ring-4 ring-brand-yellow/30 focus:outline-none">
+                    <div class="h-[33%] bg-[#FDFBF7] p-6 flex justify-between items-center border-b border-gray-100 relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h3 class="text-2xl font-black text-brand-dark tracking-tight">Step 2. 멘탈회복50일</h3>
+                            <p class="text-sm font-bold text-brand-yellow mt-1 tracking-widest">MONITORING</p>
+                        </div>
+                        <div class="shape-element w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center opacity-80 relative z-10">
+                            <div class="w-8 h-8 bg-brand-yellow rounded-tl-full rounded-br-full"></div>
+                        </div>
+                    </div>
+                    <div class="h-[67%] p-6 flex flex-col justify-between bg-white">
+                        <div>
+                            <p class="text-gray-600 text-[15px] leading-relaxed font-medium mb-5">
+                                주 1회 세션의 공백을 채우는 50일 데일리 멘탈온 루틴북과 앱입니다. 고객의 일상 데이터를 수집하여 코치가 지속적으로 모니터링하고 케어할 수 있습니다.
+                            </p>
+                            <ul class="space-y-2.5 text-sm text-gray-500 font-bold mb-4">
+                                <li class="flex items-center gap-3"><i class="w-1.5 h-1.5 rounded-full bg-brand-yellow"></i>매일 멘탈온도계 및 감정 단어 기록</li>
+                                <li class="flex items-center gap-3"><i class="w-1.5 h-1.5 rounded-full bg-brand-yellow"></i>내담자 중도 이탈(Drop) 방지 밀착 케어</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-yellow-600 font-bold text-sm">
+                            <span>기능 자세히 보기</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                    </div>
+                </button>
+
+                <!-- Step 3. 멘탈강화21일 -->
+                <button onclick="openToolkitModal('step3')" class="text-left bg-white rounded-2xl overflow-hidden shadow-lg flex flex-col shape-hover group transform transition-all hover:-translate-y-2 hover:shadow-2xl hover:ring-4 ring-green-500/30 focus:outline-none">
+                    <div class="h-[33%] bg-[#F4F9F5] p-6 flex justify-between items-center border-b border-gray-100 relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h3 class="text-2xl font-black text-brand-dark tracking-tight">Step 3. 멘탈강화21일</h3>
+                            <p class="text-sm font-bold text-green-600 mt-1 tracking-widest">DEEPENING</p>
+                        </div>
+                        <div class="shape-element w-16 h-16 bg-green-100 rounded-tr-2xl rounded-bl-2xl rotate-45 flex items-center justify-center opacity-80 relative z-10">
+                            <div class="w-8 h-8 border-4 border-green-600"></div>
+                        </div>
+                    </div>
+                    <div class="h-[67%] p-6 flex flex-col justify-between bg-white">
+                        <div>
+                            <p class="text-gray-600 text-[15px] leading-relaxed font-medium mb-5">
+                                기초 회복을 마친 고객을 위한 멘탈온 심화 과제용 솔루션입니다. 21일간의 집중 훈련을 통해 습관을 정착시키고 장기적인 고객 관계로 발전시킵니다.
+                            </p>
+                            <ul class="space-y-2.5 text-sm text-gray-500 font-bold mb-4">
+                                <li class="flex items-center gap-3"><i class="w-1.5 h-1.5 rounded-full bg-green-600"></i>뇌과학 기반 3단계 멘탈 재설계 로드맵</li>
+                                <li class="flex items-center gap-3"><i class="w-1.5 h-1.5 rounded-full bg-green-600"></i>성찰 노트 작성 및 담당 코치 데이터 전송</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-green-600 font-bold text-sm">
+                            <span>기능 자세히 보기</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                    </div>
+                </button>
+
+                <!-- Step 4. 멘탈지수검사 -->
+                <button onclick="openToolkitModal('step4')" class="text-left bg-white rounded-2xl overflow-hidden shadow-lg flex flex-col shape-hover group transform transition-all hover:-translate-y-2 hover:shadow-2xl hover:ring-4 ring-purple-500/30 focus:outline-none">
+                    <div class="h-[33%] bg-[#F5F5FA] p-6 flex justify-between items-center border-b border-gray-100 relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h3 class="text-2xl font-black text-brand-dark tracking-tight">Step 4. 멘탈지수검사</h3>
+                            <p class="text-sm font-bold text-purple-600 mt-1 tracking-widest">DIAGNOSIS</p>
+                        </div>
+                        <div class="shape-element w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center opacity-80 relative z-10">
+                            <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                                <div class="w-3 h-3 bg-white rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-[67%] p-6 flex flex-col justify-between bg-white">
+                        <div>
+                            <p class="text-gray-600 text-[15px] leading-relaxed font-medium mb-5">
+                                코칭 시작 전과 후에 고객의 상태를 수치화하여 측정하는 객관적 도구입니다. 멘탈온 앱을 통해 코칭의 실질적인 성과를 데이터로 입증할 수 있습니다.
+                            </p>
+                            <ul class="space-y-2.5 text-sm text-gray-500 font-bold mb-4">
+                                <li class="flex items-center gap-3"><i class="w-1.5 h-1.5 rounded-full bg-purple-600"></i>5대 영역 10개 항목 정밀 밸런스 측정</li>
+                                <li class="flex items-center gap-3"><i class="w-1.5 h-1.5 rounded-full bg-purple-600"></i>결과 분석 리포트 및 맞춤형 코칭 팁 제공</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-purple-600 font-bold text-sm">
+                            <span>기능 자세히 보기</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                    </div>
+                </button>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 px-4 bg-brand-light relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-brand-blue font-bold tracking-widest text-sm mb-3 block">FAQ</span>
+                <h2 class="text-3xl font-black text-brand-dark mb-4">자주 묻는 질문</h2>
+            </div>
+
+            <div class="space-y-4">
+                <details class="bg-white rounded-xl border border-brand-dark/10 shadow-sm cursor-pointer group">
+                    <summary class="flex justify-between items-center font-bold text-brand-dark p-6">
+                        <span>파일럿 프로그램 참여에 별도 비용이 발생하나요?</span>
+                        <span class="text-brand-blue transition group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-4 mt-2">
+                        아닙니다. 이번 파일럿 프로그램에 선정되신 코칭펌 및 코치님들께는 테스트 기간 동안 <strong>멘탈온 앱의 모든 관리자/사용자 기능을 무료로 제공</strong>해 드립니다. 실물 교재만 기존처럼 보유하고 계시면 추가 비용 없이 디지털 연동 시스템을 경험하실 수 있습니다.
+                    </div>
+                </details>
+
+                <details class="bg-white rounded-xl border border-brand-dark/10 shadow-sm cursor-pointer group">
+                    <summary class="flex justify-between items-center font-bold text-brand-dark p-6">
+                        <span>IT 기기나 앱 사용이 서툰 고객(어르신 등)도 쉽게 쓸 수 있나요?</span>
+                        <span class="text-brand-blue transition group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-4 mt-2">
+                        네, 멘탈온 앱은 철저하게 '직관성'에 초점을 맞춰 개발되었습니다. 스마트폰을 사용할 수 있는 수준이라면 연령대에 상관없이 누구나 쉽게 감정을 기록하고 루틴을 체크할 수 있도록 큼직한 버튼과 단순한 UI로 구성되어 있습니다.
+                    </div>
+                </details>
+
+                <details class="bg-white rounded-xl border border-brand-dark/10 shadow-sm cursor-pointer group">
+                    <summary class="flex justify-between items-center font-bold text-brand-dark p-6">
+                        <span>설명회 일정(8.9 / 8.10)에 도저히 참석이 어려운데 어떡하나요?</span>
+                        <span class="text-brand-blue transition group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-4 mt-2">
+                        실시간 줌 라이브에 참석하기 어려우신 경우, 설명회 사전 신청자에 한하여 <strong>일정 기간 동안 시청 가능한 녹화본 링크</strong>를 발송해 드릴 예정입니다. 따라서 일정이 맞지 않으시더라도 반드시 신청서를 접수해 주시기 바랍니다.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark text-white pt-16 pb-8 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8 mb-12">
+            <div class="col-span-2">
+                <h3 class="text-2xl font-black mb-4 text-brand-yellow">RESTART ON <span class="text-sm font-medium text-white/80 ml-2">코칭파트너스</span></h3>
+                <p class="text-white/70 mb-6 max-w-md leading-relaxed text-sm">
+                    리스타트온 코칭파트너스는 감정-사고-행동의 흐름을 성장으로 전환시키는 리스타트연구소의 멘탈회복 전문 브랜드입니다.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="https://www.instagram.com/restart_on_/" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-blue transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://blog.naver.com/restart429" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-blue transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.452 2.072h-16.9C1.583 2.072 0 3.655 0 5.62v12.759c0 1.966 1.583 3.548 3.551 3.548h16.9c1.967 0 3.549-1.582 3.549-3.548V5.62c0-1.965-1.582-3.548-3.548-3.548zM8.508 17.067H5.976V9.431h2.532v7.636zM7.243 8.39c-.81 0-1.467-.657-1.467-1.467 0-.81.657-1.467 1.467-1.467.81 0 1.467.657 1.467 1.467 0 .81-.657 1.467-1.467 1.467zm10.781 8.677h-2.53v-3.721c0-.887-.015-2.028-1.236-2.028-1.236 0-1.425.966-1.425 1.963v3.786h-2.53V9.431h2.428v1.043h.034c.338-.639 1.162-1.312 2.39-1.312 2.557 0 3.028 1.683 3.028 3.872v4.033h-.159z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-4 text-white">Contact Us</h4>
+                <ul class="space-y-2 text-white/70 text-sm">
+                    <li>052-700-0429</li>
+                    <li>010-9832-0691</li>
+                    <li>restart429@naver.com</li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-4 text-white">Address</h4>
+                <address class="not-italic text-white/70 text-sm leading-relaxed">
+                    울산 중구 종가로 406-21<br>
+                    울산비즈파크 C동 4층 429호<br>
+                    리스타트연구소
+                </address>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 pt-8 border-t border-white/10 text-center text-white/50 text-sm">
+            &copy; 2026 멘탈온(Mental ON). All rights reserved.
+        </div>
+    </footer>
+
+    <button onclick="openWebinarModal()" class="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-brand-blue hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-full shadow-[0_10px_25px_rgba(29,78,216,0.4)] flex items-center gap-3 transition-transform hover:scale-105 z-40 group border-2 border-white">
+        <span class="hidden md:block">설명회 신청하기</span>
+        <svg class="w-6 h-6 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </button>
+
+    <div id="toolkit-modal-backdrop" class="fixed inset-0 bg-brand-dark/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-leave">
+        <div id="toolkit-modal-content" class="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col relative">
+            
+            <!-- 모달 닫기 버튼 -->
+            <button onclick="closeToolkitModal()" class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 transition-colors z-20 backdrop-blur-md border border-white/30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <!-- 모달 헤더 (JS에서 동적 색상/내용 변경) -->
+            <div id="modal-header" class="px-8 py-10 relative overflow-hidden shrink-0">
+                <div class="relative z-10">
+                    <span id="modal-badge" class="px-3 py-1 bg-white/20 text-white text-xs font-bold rounded-full mb-3 inline-block backdrop-blur-sm border border-white/30 tracking-widest"></span>
+                    <h2 id="modal-title" class="text-3xl font-black text-white mb-2 leading-tight"></h2>
+                    <p id="modal-subtitle" class="text-white/90 text-sm font-medium"></p>
+                </div>
+                <!-- 장식용 배경 원 -->
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+            </div>
+
+            <!-- 모달 바디 (스크롤 영역) -->
+            <div class="p-8 overflow-y-auto flex-1 bg-gray-50">
+                
+                <!-- 기대 효과 하이라이트 박스 -->
+                <div id="modal-effect-box" class="mb-8 p-5 rounded-2xl border flex items-start gap-4">
+                    <div id="modal-effect-icon" class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-xl shadow-inner"></div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-1 text-sm">도입 기대 효과</h4>
+                        <p id="modal-effect-text" class="text-gray-600 text-sm leading-relaxed"></p>
+                    </div>
+                </div>
+
+                <h3 class="font-bold text-gray-800 text-lg mb-4 border-b border-gray-200 pb-2">앱 핵심 기능 상세</h3>
+                
+                <!-- 동적으로 채워질 기능 리스트 -->
+                <ul id="modal-features-list" class="space-y-4">
+                    <!-- JS 렌더링 -->
+                </ul>
+            </div>
+            
+            <!-- 모달 푸터 -->
+            <div class="p-6 bg-white border-t border-gray-100 text-center shrink-0">
+                <button onclick="closeToolkitModal()" class="bg-gray-800 hover:bg-gray-900 text-white px-8 py-3 rounded-xl font-bold transition-colors shadow-md">
+                    확인 및 닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="webinar-modal-backdrop" class="fixed inset-0 bg-brand-dark/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-leave hidden">
+        <div id="webinar-modal-content" class="bg-white rounded-3xl w-full max-w-md max-h-[90vh] overflow-hidden shadow-2xl flex flex-col relative">
+            
+            <button onclick="closeWebinarModal()" class="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full p-2 transition-colors z-20">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="px-8 py-8 bg-brand-dark text-white shrink-0 relative overflow-hidden">
+                <div class="relative z-10">
+                    <span class="px-3 py-1 bg-brand-yellow text-brand-dark text-xs font-bold rounded-full mb-3 inline-block">VIP INVITATION</span>
+                    <h2 class="text-2xl font-black mb-1">멘탈온 O2O 런칭 설명회</h2>
+                    <p class="text-white/80 text-sm">코칭 비즈니스의 수익화 시크릿을 공개합니다.</p>
+                </div>
+                <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-brand-blue opacity-50 rounded-full blur-2xl"></div>
+            </div>
+
+            <div class="p-8 overflow-y-auto flex-1 bg-gray-50">
+                <form id="webinar-form" onsubmit="submitWebinarForm(event)" class="space-y-5">
+                    
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">성함 (직급) <span class="text-red-500">*</span></label>
+                        <input type="text" id="webinar-name" required placeholder="예: 홍길동 코치" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all shadow-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">소속 코칭펌 (기관명) <span class="text-red-500">*</span></label>
+                        <input type="text" id="webinar-org" required placeholder="개인 프리랜서일 경우 '프리랜서' 입력" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all shadow-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">연락처 <span class="text-red-500">*</span></label>
+                        <input type="tel" id="webinar-phone" required placeholder="010-0000-0000 (설명회 안내 발송용)" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all shadow-sm">
+                    </div>
+
+                    <!-- 이메일 입력 필드 추가 -->
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">이메일 주소 <span class="text-red-500">*</span></label>
+                        <input type="email" id="webinar-email" required placeholder="yourname@email.com (줌 안내 발송용)" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all shadow-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">참여 희망 일정 <span class="text-red-500">*</span></label>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-xl bg-white cursor-pointer hover:border-brand-blue transition-colors">
+                                <input type="radio" name="schedule" required value="8.9" class="w-4 h-4 text-brand-blue focus:ring-brand-blue accent-brand-blue">
+                                <span class="text-sm font-medium text-gray-800">8월 9일 (일) 저녁 8시</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-xl bg-white cursor-pointer hover:border-brand-blue transition-colors">
+                                <input type="radio" name="schedule" required value="8.10" class="w-4 h-4 text-brand-blue focus:ring-brand-blue accent-brand-blue">
+                                <span class="text-sm font-medium text-gray-800">8월 10일 (월) 저녁 8시</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-xl bg-white cursor-pointer hover:border-brand-blue transition-colors">
+                                <input type="radio" name="schedule" required value="vod" class="w-4 h-4 text-brand-blue focus:ring-brand-blue accent-brand-blue">
+                                <span class="text-sm font-medium text-gray-800">라이브 참석 불가 (녹화본 링크 요청)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">멘탈온 실물 교재 보유 현황 <span class="text-red-500">*</span></label>
+                        <select id="webinar-textbook" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all shadow-sm text-sm text-gray-700 bg-white">
+                            <option value="">선택해 주세요</option>
+                            <option value="both">루틴북과 FT카드 모두 보유</option>
+                            <option value="routine">50일 루틴북만 보유</option>
+                            <option value="ftcard">멘탈 FT카드만 보유</option>
+                            <option value="none">아직 미보유 (설명회 전까지 구매 예정)</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-2">
+                        <label class="flex items-start gap-2 cursor-pointer">
+                            <input type="checkbox" required class="mt-1 w-4 h-4 text-brand-blue accent-brand-blue rounded">
+                            <span class="text-xs text-gray-500 leading-relaxed">
+                                설명회 안내 및 파일럿 프로그램 혜택 제공을 위한 개인정보(성명, 연락처, 소속) 수집 및 이용에 동의합니다.
+                            </span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="p-6 bg-white border-t border-gray-100 shrink-0">
+                <button type="submit" form="webinar-form" class="w-full bg-brand-blue hover:bg-blue-600 text-white py-4 rounded-xl font-black text-lg transition-colors shadow-md flex items-center justify-center gap-2">
+                    신청서 제출하기
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 4단계 앱 상세 데이터 정의
+        const toolkitData = {
+            step1: {
+                title: "멘탈FT카드 앱",
+                badge: "STEP 1. CONNECTION",
+                subtitle: "생각의 방향을 정렬하고 감정 에너지를 전환하는 50장의 멘탈 코칭 카드",
+                themeClass: "bg-brand-blue", // 헤더 배경색 클래스
+                effectBoxClass: "bg-blue-50 border-blue-100",
+                effectIconClass: "bg-brand-blue text-white",
+                effectIcon: "💡",
+                effect: "상담 초기의 어색함을 깨고 내담자의 닫힌 마음을 빠르게 엽니다. 비대면(Zoom) 환경에서도 화상 코칭의 몰입도를 오프라인 수준으로 극대화합니다.",
+                features: [
+                    {
+                        title: "상황별 맞춤 프레임 탐색",
+                        desc: "5대 카테고리(신뢰, 지각, 소통, 변화, 유연성) 기반으로 내담자의 현재 이슈에 딱 맞는 '멘탈 틀'과 '멘탈 훈련' 카드를 디지털로 도출합니다."
+                    },
+                    {
+                        title: "1분 / 5분 일상 루틴 (셀프코칭)",
+                        desc: "고객 스스로 매일 앱에 접속하여 카드를 뒤집어보고(1분), 실천 다짐을 메모하는(5분) 루틴 기능을 제공하여 무의식에 긍정적인 메시지를 각인시킵니다."
+                    },
+                    {
+                        title: "그룹 & 팀 코칭 최적화",
+                        desc: "공통 주제를 합의하여 카드를 선택하고, '실천 이유 화면 공유' 기능을 통해 다대다 온라인 코칭 세션에서도 원활한 소통을 지원합니다."
+                    }
+                ]
+            },
+            step2: {
+                title: "멘탈회복 50일 루틴 앱",
+                badge: "STEP 2. MONITORING",
+                subtitle: "매일의 작은 반복으로 무너진 멘탈을 회복하는 데일리 케어 솔루션",
+                themeClass: "bg-yellow-500",
+                effectBoxClass: "bg-yellow-50 border-yellow-100",
+                effectIconClass: "bg-yellow-500 text-white",
+                effectIcon: "🌱",
+                effect: "주 1회 진행되는 코칭 세션의 물리적 공백을 완벽하게 채웁니다. 일상적인 밀착 케어를 통해 고객의 중도 포기(Drop)를 방지합니다.",
+                features: [
+                    {
+                        title: "매일 5분 감정 및 감사 기록",
+                        desc: "하루를 돌아보며 30개의 감정 단어 중 하나를 선택하고, 멘탈 온도계를 수치화하며, 작은 감사 일기를 앱에 남기는 습관을 형성합니다."
+                    },
+                    {
+                        title: "디지털 필사(따라 쓰기) 훈련",
+                        desc: "매일 새롭게 제공되는 멘탈 틀 메시지와 성경 구절 등을 앱에 직접 타이핑하며 내면의 언어로 승화시킵니다."
+                    },
+                    {
+                        title: "변화 추이 통계 차트화",
+                        desc: "50일간 누적된 '멘탈 온도 변화 추이'와 '가장 많이 느낀 감정'을 시각화된 차트로 제공하여 고객 스스로의 성장을 객관적으로 확인하게 합니다."
+                    }
+                ]
+            },
+            step3: {
+                title: "멘탈강화 21일 심화 앱",
+                badge: "STEP 3. DEEPENING",
+                subtitle: "낡은 신경망을 재설계하고 행동의 변화를 이끄는 심화 과제 솔루션",
+                themeClass: "bg-green-600",
+                effectBoxClass: "bg-green-50 border-green-100",
+                effectIconClass: "bg-green-600 text-white",
+                effectIcon: "🚀",
+                effect: "기초 멘탈 회복을 마친 고객을 다음 단계의 심화 코칭 계약(Retention)으로 자연스럽게 이끌며, 실질적인 행동 변화 성과를 증명합니다.",
+                features: [
+                    {
+                        title: "뇌과학 기반 3단계 멘탈 로드맵",
+                        desc: "Phase 1(중독 거부)부터 Phase 3(잠재력 폭발)까지 체계적으로 구성된 21일 집중 훈련을 통해 뇌의 가소성을 자극합니다."
+                    },
+                    {
+                        title: "전두엽 깨우기 & 심화 E-Book",
+                        desc: "명상(감사 스위치) 타이머 기능과 함께, 21일 루틴의 과학적 배경을 담은 '멘탈ON 심화이론북'을 앱 내에 탑재하여 이해도를 높입니다."
+                    },
+                    {
+                        title: "성찰 데이터 코치 연동 및 PDF 소장",
+                        desc: "작성한 심층 성찰 노트를 담당 코치에게 실시간 전송(구글 시트 연동)하며, 21일 완주 시 '나의 멘탈강화여정'을 PDF 책자로 자동 생성합니다."
+                    }
+                ]
+            },
+            step4: {
+                title: "멘탈지수 진단검사 앱",
+                badge: "STEP 4. DIAGNOSIS",
+                subtitle: "5대 영역 10개 하위 척도로 멘탈 밸런스를 정밀 측정하는 객관적 도구",
+                themeClass: "bg-purple-600",
+                effectBoxClass: "bg-purple-50 border-purple-100",
+                effectIconClass: "bg-purple-600 text-white",
+                effectIcon: "📊",
+                effect: "코칭 전/후의 심리적 변화를 구체적인 '데이터'로 입증합니다. 눈에 보이는 객관적 결과는 코칭펌의 가장 강력하고 확실한 세일즈 무기가 됩니다.",
+                features: [
+                    {
+                        title: "50문항 종합 정밀 진단 시스템",
+                        desc: "인간에 대한 신뢰, 지각의 주관성 등 5대 영역과 내적안정감, 충동조절력 등 10개 세부 척도를 통해 고객의 멘탈 밸런스를 측정합니다."
+                    },
+                    {
+                        title: "자동 분석 리포트 즉시 발행",
+                        desc: "진단 완료 즉시 방사형(Radar) 차트가 포함된 결과 보고서를 화면에 띄워주며, 현재 멘탈 티어(높음/보통/낮음)에 따른 맞춤 코칭 팁을 제공합니다."
+                    },
+                    {
+                        title: "히스토리 관리 및 변화 추이 추적",
+                        desc: "과거 진단 기록들을 누적하여 멘탈 지수 평균 변화를 선그래프(Trend Chart)로 보여주며, 언제든 이전 보고서를 다시 열람하거나 PDF로 다운로드할 수 있습니다."
+                    }
+                ]
+            }
+        };
+
+        const modalBackdrop = document.getElementById('toolkit-modal-backdrop');
+        const modalContent = document.getElementById('toolkit-modal-content');
+
+        // 모달 열기 함수
+        function openToolkitModal(stepKey) {
+            const data = toolkitData[stepKey];
+            if (!data) return;
+
+            // 데이터 채우기
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-badge').innerText = data.badge;
+            document.getElementById('modal-subtitle').innerText = data.subtitle;
+            
+            // 헤더 배경색 변경 (이전 클래스 제거 및 새 클래스 추가)
+            const headerEl = document.getElementById('modal-header');
+            headerEl.className = `px-8 py-10 relative overflow-hidden shrink-0 ${data.themeClass}`;
+            
+            // 효과 박스 스타일 및 내용 채우기
+            const effectBox = document.getElementById('modal-effect-box');
+            effectBox.className = `mb-8 p-5 rounded-2xl border flex items-start gap-4 ${data.effectBoxClass}`;
+            
+            const effectIcon = document.getElementById('modal-effect-icon');
+            effectIcon.className = `w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-xl shadow-inner ${data.effectIconClass}`;
+            effectIcon.innerText = data.effectIcon;
+            
+            document.getElementById('modal-effect-text').innerText = data.effect;
+
+            // 기능 리스트(<ul>) 렌더링
+            const featuresList = document.getElementById('modal-features-list');
+            featuresList.innerHTML = ''; // 초기화
+            data.features.forEach(feat => {
+                const li = document.createElement('li');
+                li.className = "bg-white p-5 rounded-xl border border-gray-100 shadow-sm flex items-start gap-4";
+                li.innerHTML = `
+                    <div class="mt-0.5 text-${data.themeClass.split('-')[1]}-500 shrink-0">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-gray-800 mb-1">${feat.title}</h5>
+                        <p class="text-sm text-gray-500 leading-relaxed">${feat.desc}</p>
+                    </div>
+                `;
+                featuresList.appendChild(li);
+            });
+
+            // 모달 애니메이션 실행 (보이기)
+            modalBackdrop.classList.remove('modal-leave');
+            modalBackdrop.classList.add('modal-enter');
+            // 바디 스크롤 방지
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 모달 닫기 함수
+        function closeToolkitModal() {
+            modalBackdrop.classList.remove('modal-enter');
+            modalBackdrop.classList.add('modal-leave');
+            // 바디 스크롤 원복
+            document.body.style.overflow = '';
+        }
+
+        // 배경(백드롭) 클릭 시 닫기
+        modalBackdrop.addEventListener('click', function(e) {
+            if (e.target === modalBackdrop) {
+                closeToolkitModal();
+            }
+        });
+
+        const webinarBackdrop = document.getElementById('webinar-modal-backdrop');
+
+        function openWebinarModal() {
+            webinarBackdrop.classList.remove('hidden');
+            // 강제 리플로우를 통해 애니메이션 트리거
+            void webinarBackdrop.offsetWidth;
+            webinarBackdrop.classList.remove('modal-leave');
+            webinarBackdrop.classList.add('modal-enter');
+            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+        }
+
+        function closeWebinarModal() {
+            webinarBackdrop.classList.remove('modal-enter');
+            webinarBackdrop.classList.add('modal-leave');
+            document.body.style.overflow = ''; // 배경 스크롤 원복
+            
+            // 애니메이션이 끝난 후 hidden 처리
+            setTimeout(() => {
+                webinarBackdrop.classList.add('hidden');
+            }, 300);
+        }
+
+        async function submitWebinarForm(event) {
+            event.preventDefault(); // 폼 기본 제출(새로고침) 방지
+            
+            const form = event.target;
+            const submitBtn = document.querySelector('button[form="webinar-form"]');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            // 1. 버튼을 '전송 중' 상태로 변경 (로딩 애니메이션)
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                신청서 전송 중...
+            `;
+            
+            // 2. 폼 데이터 수집
+            const data = {
+                name: document.getElementById('webinar-name').value,
+                org: document.getElementById('webinar-org').value,
+                phone: document.getElementById('webinar-phone').value,
+                email: document.getElementById('webinar-email').value, // 이메일 데이터 수집
+                schedule: form.querySelector('input[name="schedule"]:checked').value,
+                textbook: document.getElementById('webinar-textbook').value
+            };
+            
+            // 3. 대표님께서 부여받은 구글 앱스 스크립트 고유 URL
+            const GAS_URL = "https://script.google.com/macros/s/AKfycbyljal7HPfBfo84THGKCIbysfF8Pkbw3hI0XWdez8BCS1xN0z-soRpmX2EGkvmm4HMLQw/exec";
+            
+            try {
+                // 4. 구글 시트로 데이터 전송 (CORS 에러 방지를 위해 text/plain 방식 사용)
+                await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                // 5. 성공 처리 알림창
+                alert('🎉 설명회 신청이 성공적으로 완료되었습니다!\n\n입력해주신 연락처로 줌(Zoom) 링크와 상세 안내 문자를 발송해 드리겠습니다. 감사합니다.');
+                
+                closeWebinarModal();
+                form.reset(); // 폼 내용 초기화
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+            } finally {
+                // 6. 폼 전송이 끝나면 버튼 상태 원복
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        }
+
+        // 배경 클릭 시 설명회 모달 닫기
+        webinarBackdrop.addEventListener('click', function(e) {
+            if (e.target === webinarBackdrop) {
+                closeWebinarModal();
+            }
+        });
+
+    </script>
+
+</body>
+</html>
