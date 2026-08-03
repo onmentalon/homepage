@@ -611,8 +611,8 @@
             document.body.style.overflow = '';
         }
 
-        // Google Sheets Web App URL (대표님의 실제 URL로 변경 필요)
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzL5x_cQ-yF3R-Zz4-jQYj_yE_bE6xM5vQ_rA-c_X_y/exec';
+        // Google Sheets Web App URL (대표님의 실제 발급 URL로 완벽 교체 완료!)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyljal7HPfBfo84THGKCIbysfF8Pkbw3hI0XWdez8BCS1xN0z-soRpmX2EGkvmm4HMLQw/exec';
 
         // Form Submit Logic
         document.getElementById('applyForm').addEventListener('submit', function(e) {
@@ -642,7 +642,7 @@
                 textbook: document.getElementById('entryTextbook').value
             };
 
-            // Fetch Request
+            // Fetch Request to Google Apps Script
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -668,7 +668,7 @@
             });
         });
 
-        // Toolkit Detail Data ('내담자/상담' -> '고객/코칭' 용어 반영 완료)
+        // Toolkit Detail Data
         const toolkitData = {
             step1: {
                 title: "Step 1. 멘탈FT카드",
