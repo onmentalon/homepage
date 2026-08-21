@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>멘탈온(Mental ON) - O2O 코칭 파일럿 초청</title>
+    <title>멘탈온(Mental ON) - 나의 멘탈 회복 파트너</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script src="https://js.tosspayments.com/v1.0.0"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script>
         tailwind.config = {
             theme: {
@@ -17,13 +20,15 @@
                     colors: {
                         brand: {
                             light: '#F4F9F5',
-                            dark: '#152C5B',
-                            blue: '#1D4ED8',
-                            yellow: '#DCC34C'
+                            dark: '#161A23',
+                            cardBg: '#222836',
+                            blue: '#00C897',
+                            blueHover: '#00B084',
+                            yellow: '#EAB308'
                         }
                     },
                     fontFamily: {
-                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
                         serif: ['"Noto Serif KR"', 'serif'],
                     }
                 }
@@ -32,879 +37,798 @@
     </script>
     
     <style>
-        html { scroll-behavior: smooth; }
-        
-        .hero-pattern {
-            background-color: #F4F9F5;
-            background-image: radial-gradient(#152C5B 0.5px, transparent 0.5px), radial-gradient(#152C5B 0.5px, #F4F9F5 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+        html { 
+            scroll-behavior: smooth; 
+        }
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            letter-spacing: -0.015em;
+            color: #2D3748;
         }
         
-        .shape-hover:hover .shape-element { transform: scale(1.15) rotate(15deg); }
-        .shape-element { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
-        details[open] summary ~ * { animation: sweep .3s ease-in-out; }
-        @keyframes sweep {
-            0%    {opacity: 0; transform: translateY(-10px)}
-            100%  {opacity: 1; transform: translateY(0)}
+        .hero-bg {
+            background-color: #161A23;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 200, 151, 0.12) 0%, transparent 60%),
+                radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 100% 100%, 28px 28px;
         }
 
-        .backdrop-transition { transition: opacity 0.3s ease; }
-        .modal-content-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-
-        h1, h2, h3, h4, h5, h6, summary, button, input, select, textarea, .tracking-widest, .ui-gothic {
-            font-family: 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'Helvetica Neue', 'sans-serif' !important;
+        p, li, span {
+            line-height: 1.75;
+        }
+        
+        .heading-tight {
+            line-height: 1.38 !important;
         }
 
-        input[type="text"], input[type="tel"], input[type="email"], select {
-            font-size: 16px !important;
+        .modal-content-transition { 
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); 
         }
-
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .plan-radio:checked + div {
+            border-color: #00C897;
+            background-color: #f0fdf4;
+            box-shadow: 0 8px 25px -5px rgba(0, 200, 151, 0.15);
+        }
+        .plan-radio:checked + div .check-icon {
+            color: #00C897;
+            opacity: 1;
+        }
+
+        .trust-card-hover {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .trust-card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 50px -10px rgba(0, 200, 151, 0.25);
+        }
+
+        .break-keep {
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
     </style>
 </head>
-<body class="font-serif text-brand-dark antialiased bg-brand-light relative">
+<body class="text-gray-800 antialiased bg-gray-50 relative">
 
-    <nav class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-40 border-b border-gray-100 shadow-sm h-16">
-        <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
-            <div class="ui-gothic font-black text-xl text-brand-dark tracking-tight flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
-                <div class="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white text-lg font-bold">M</div>
-                MENTAL ON
+    <nav class="fixed top-0 left-0 right-0 bg-[#161A23]/95 backdrop-blur-md z-40 border-b border-gray-800/80 shadow-sm h-20">
+        <div class="max-w-7xl mx-auto px-5 md:px-10 h-full flex justify-between items-center">
+            <div class="font-black text-2xl text-white tracking-tight flex items-center gap-2 cursor-pointer" onclick="switchView('home')">
+                <span class="text-brand-blue">MENTAL</span> ON
             </div>
             
-            <div class="flex items-center gap-2 md:gap-4">
-                <button onclick="openNoticeModal()" class="text-[14px] md:text-[15px] font-bold text-gray-600 hover:text-brand-blue transition-colors flex items-center gap-1 ui-gothic">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                    <span class="hidden sm:inline">공지사항</span>
-                </button>
-                <div class="w-px h-4 bg-gray-300"></div>
-                <div id="nav-auth-area" class="flex items-center gap-3 ui-gothic">
-                    <!-- JS로 동적 렌더링됨 -->
+            <div class="flex items-center gap-6 text-sm font-medium">
+                <a href="#" onclick="switchView('home')" class="text-gray-300 hover:text-white transition hidden md:block">홈</a>
+                <a href="#" onclick="openCoachProfilesModal()" class="text-gray-300 hover:text-white transition hidden md:block">코치진 소개</a>
+                <a href="#" onclick="switchView('checkout')" class="text-brand-blue font-bold hover:text-emerald-300 transition hidden md:block">구독/결제</a>
+                <span class="text-gray-700 hidden md:block">|</span>
+                <a href="#" onclick="switchView('home'); setTimeout(() => document.getElementById('dashboard-section').scrollIntoView(), 100);" class="text-gray-300 hover:text-white transition hidden sm:block">나의 대시보드</a>
+                
+                <div id="auth-desktop-container" class="inline-block">
+                    <!-- JS 동적 렌더링 -->
                 </div>
             </div>
         </div>
     </nav>
 
-    <header id="top" class="hero-pattern pt-32 pb-24 px-4 relative overflow-hidden border-b border-gray-200 min-h-[80vh] flex items-center">
-        <div class="max-w-4xl mx-auto relative z-10 text-center">
-            
-            <span class="ui-gothic bg-blue-50 text-brand-blue text-[15px] md:text-base font-bold px-5 py-2.5 rounded-full mb-6 inline-block border border-blue-200 shadow-sm">
-                💌 코칭에 진심인 코치님들을 초대합니다
-            </span>
-            
-            <h1 class="ui-gothic text-4xl md:text-5xl lg:text-6xl font-black mb-8 leading-tight drop-shadow-sm text-brand-dark tracking-tight break-keep">
-                <span class="text-brand-blue block mb-2">
-                    <span class="shadow-[inset_0_-14px_0_rgba(220,195,76,0.4)] px-1">AI 시대</span>의 새로운 
-                    <span class="shadow-[inset_0_-14px_0_rgba(220,195,76,0.4)] px-1">경쟁력</span>을
-                </span>
-                코칭에 도입할 때입니다.
-            </h1>
-            
-            <p class="text-[17px] md:text-xl mb-12 font-medium text-brand-dark/80 leading-relaxed max-w-2xl mx-auto break-keep">
-                <span class="inline-block bg-brand-yellow/30 px-2 py-0.5 rounded text-brand-dark font-bold text-sm mb-3 ui-gothic">✨ 유료회원 전용 강력한 O2O 툴킷</span><br>
-                멘탈온 전용 앱을 연계하여 기존 코칭의 한계를 뛰어넘으세요.<br>
-                <strong class="text-brand-blue">신규 고객 등록</strong>과 <strong class="text-brand-blue">고객 유지율</strong>을 압도적으로 높여보세요.
-            </p>
-            
-            <div class="flex justify-center gap-4 relative z-20">
-                <a href="#benefits" class="ui-gothic text-white bg-brand-blue font-bold py-4 px-10 rounded-xl transition-all text-lg shadow-lg hover:shadow-xl hover:bg-blue-600 hover:-translate-y-1 flex items-center gap-2 group">
-                    <span>O2O 시스템 살펴보기</span>
-                    <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                </a>
-            </div>
-
-            <!-- 스크롤 인디케이터 -->
-            <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer hidden md:flex flex-col items-center opacity-70" onclick="document.getElementById('benefits').scrollIntoView({behavior: 'smooth'})">
-                <span class="ui-gothic text-xs font-bold text-brand-dark mb-2 tracking-widest">SCROLL DOWN</span>
-                <div class="w-8 h-12 rounded-full border-2 border-brand-dark flex justify-center p-1">
-                    <div class="w-1.5 h-3 bg-brand-dark rounded-full animate-pulse mt-1"></div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section id="benefits" class="py-24 px-4 bg-white relative z-10">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="ui-gothic text-brand-blue font-bold tracking-widest text-sm mb-3 block">WHY MENTAL ON O2O?</span>
-                <h2 class="ui-gothic text-2xl md:text-3xl lg:text-4xl font-black text-brand-dark mb-4 break-keep">코칭 비즈니스에 가져올 3가지 확실한 변화</h2>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-brand-light rounded-2xl p-8 border border-brand-dark/5 text-center hover:shadow-lg transition-shadow">
-                    <div class="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+    <div id="view-home">
+        
+        <header class="hero-bg pt-32 pb-24 md:pt-36 md:pb-28 px-5 md:px-10 relative overflow-hidden min-h-[80vh] flex items-center">
+            <div class="max-w-7xl mx-auto w-full grid md:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
+                
+                <!-- 좌측 타이틀 & 메시지 영역 -->
+                <div class="md:col-span-7 text-left flex flex-col justify-center">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-blue/15 border border-brand-blue/30 text-brand-blue text-xs md:text-sm font-bold mb-6 tracking-wide shadow-sm w-fit">
+                        <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                        O2O MENTAL CARE PLATFORM
                     </div>
-                    <h3 class="ui-gothic text-xl md:text-[22px] font-bold text-brand-dark mb-3">압도적인 신규 고객 유치</h3>
-                    <p class="text-gray-600 text-[15px] md:text-base leading-relaxed break-keep font-serif">'멘탈 코칭'과 '전용 앱'을 전면에 부각해 보세요. 막연했던 코칭이 눈에 보이는 프리미엄 시스템으로 탈바꿈하여 타겟 고객의 신뢰를 얻습니다.</p>
+                    
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black mb-6 heading-tight text-white tracking-tight break-keep">
+                        멘탈관리는 다이어트와 같습니다.<br>
+                        <span class="text-brand-blue">멘탈온</span>에서는 체계적으로<br>
+                        멘탈관리를 도와드립니다
+                    </h1>
+                    
+                    <p class="text-sm sm:text-base md:text-lg mb-6 font-normal text-gray-300/90 leading-[1.75] break-keep max-w-lg">
+                        언제, 어디서나 당신의 멘탈을 지켜드립니다.<br>
+                        앱과 루틴북으로 매일매일 코치와 연결되는<br>
+                        <strong class="text-white font-semibold underline decoration-brand-blue/60 underline-offset-6">일상 밀착형 멘탈 케어 서비스</strong>를 경험해보세요.
+                    </p>
+
+                    <!-- 신뢰 지표 배지 바 -->
+                    <div class="flex flex-wrap items-center gap-5 py-4 mb-8 border-y border-gray-800/80 text-xs sm:text-sm text-gray-300">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-star text-brand-yellow text-sm"></i>
+                            <span class="text-white font-bold">4.9 / 5.0</span> 코칭 만족도
+                        </div>
+                        <span class="text-gray-700 hidden sm:inline">•</span>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-user-shield text-brand-blue text-sm"></i>
+                            <span class="text-white font-bold">1:1</span> 전담 케어
+                        </div>
+                        <span class="text-gray-700 hidden sm:inline">•</span>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-chart-line text-purple-400 text-sm"></i>
+                            <span class="text-white font-bold">데이터 기반</span> 진단
+                        </div>
+                    </div>
+                    
+                    <!-- CTA 버튼 그룹 -->
+                    <div class="flex flex-col sm:flex-row gap-3.5">
+                        <button onclick="switchView('checkout')" class="bg-brand-blue hover:bg-brand-blueHover text-white font-bold py-3.5 px-7 rounded-xl transition-all text-base shadow-lg shadow-brand-blue/20 flex items-center justify-center gap-2.5 group">
+                            <span>나에게 맞는 플랜 찾기</span>
+                            <i class="fas fa-arrow-right group-hover:translate-x-1.5 transition-transform duration-200"></i>
+                        </button>
+
+                        <button onclick="document.getElementById('curriculum-section').scrollIntoView({behavior:'smooth'})" class="bg-gray-800/80 hover:bg-gray-700 text-gray-200 border border-gray-700/80 font-bold py-3.5 px-6 rounded-xl transition-all text-sm sm:text-base flex items-center justify-center gap-2">
+                            <i class="fas fa-layer-group text-brand-blue"></i>
+                            <span>50일 커리큘럼 둘러보기</span>
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="bg-brand-light rounded-2xl p-8 border border-brand-dark/5 text-center hover:shadow-lg transition-shadow">
-                    <div class="w-16 h-16 bg-brand-yellow/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-brand-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                    </div>
-                    <h3 class="ui-gothic text-xl md:text-[22px] font-bold text-brand-dark mb-3">고객 이탈 방지 (Retention)</h3>
-                    <p class="text-gray-600 text-[15px] md:text-base leading-relaxed break-keep font-serif">세션의 공백을 앱과 루틴북으로 밀착 케어합니다. 고객의 중도 포기를 방지하고, 일상적인 연결감을 통해 장기 재결제율을 높입니다.</p>
-                </div>
+                <!-- 우측 카드 영역 -->
+                <div class="md:col-span-5 relative">
+                    <div onclick="openCoachProfilesModal()" class="bg-white p-7 md:p-9 rounded-[28px] border border-emerald-100 shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative overflow-hidden cursor-pointer trust-card-hover group">
+                        
+                        <!-- 상단 태그 및 버튼 -->
+                        <div class="flex justify-between items-center mb-6 relative z-10">
+                            <span class="text-xs sm:text-sm bg-emerald-50 text-emerald-800 border border-emerald-200/90 px-3.5 py-1.5 rounded-full font-bold flex items-center gap-2">
+                                <i class="fas fa-certificate text-emerald-600 text-xs"></i> 검증된 전문 코치진
+                            </span>
+                            <span class="text-xs sm:text-sm text-gray-500 group-hover:text-emerald-600 transition-colors flex items-center gap-1.5 font-bold">
+                                프로필 상세 <i class="fas fa-chevron-right text-xs"></i>
+                            </span>
+                        </div>
+                        
+                        <!-- 메인 텍스트 메시지 -->
+                        <p class="text-lg sm:text-xl font-bold text-gray-900 leading-[1.65] mb-8 relative z-10 break-keep">
+                            당신의 일상에 늘 성장동력을 공급받으세요.<br><br>
+                            데이터 기반의 멘탈 진단부터<br>
+                            매일의 회복 루틴까지<br>
+                            <span class="text-[#00B084] font-extrabold">멘탈온이 함께합니다.</span>
+                        </p>
+                        
+                        <!-- 코치 프로필 레이아웃 -->
+                        <div class="pt-5 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
+                            <div class="flex items-center gap-3">
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    <div class="h-9 w-9 rounded-full border border-emerald-300 bg-emerald-700 text-white flex items-center justify-center font-bold text-[11px] shadow-sm">최원혜</div>
+                                    <div class="h-9 w-9 rounded-full border border-slate-300 bg-slate-800 text-white flex items-center justify-center font-bold text-[11px] shadow-sm">김웅</div>
+                                    <div class="h-9 w-9 rounded-full border border-teal-300 bg-teal-700 text-white flex items-center justify-center font-bold text-[11px] shadow-sm">손한나</div>
+                                </div>
+                                
+                                <div class="text-left shrink-0">
+                                    <div class="text-gray-900 font-bold text-xs sm:text-sm whitespace-nowrap">리스타트 코칭 파트너스</div>
+                                    <div class="text-gray-500 text-[11px] sm:text-xs mt-0.5 whitespace-nowrap">멘탈케어 & 루틴 전문 코치진</div>
+                                </div>
+                            </div>
 
-                <div class="bg-brand-light rounded-2xl p-8 border border-brand-dark/5 text-center hover:shadow-lg transition-shadow">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    </div>
-                    <h3 class="ui-gothic text-xl md:text-[22px] font-bold text-brand-dark mb-3">객관적 성과 입증</h3>
-                    <p class="text-gray-600 text-[15px] md:text-base leading-relaxed break-keep font-serif">사전/사후 검사 데이터를 통해 코칭의 실질적 효과를 수치로 증명합니다. 눈에 보이는 결과는 코칭펌의 확고한 레퍼런스가 됩니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="toolkit" class="py-24 px-4 bg-brand-dark relative z-10">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="ui-gothic text-brand-yellow font-bold tracking-widest text-sm mb-3 block">MENTAL ON O2O TOOLKIT</span>
-                <h2 class="ui-gothic text-2xl md:text-3xl lg:text-4xl font-black text-white mb-4 break-keep">상황에 맞게 조립하는 코칭&상담 5대 툴킷 (Toolkit)</h2>
-                <p class="text-gray-300 max-w-2xl mx-auto mb-2 text-[15px] md:text-lg break-keep font-serif">고객의 상황과 코칭&상담 단계에 맞춰 필요한 도구를 독립적으로, 혹은 연결하여 자유롭게 활용해 보세요.</p>
-                <p class="text-brand-yellow/80 text-[14px] md:text-[15px] font-medium animate-pulse mt-4 font-serif">👇 카드를 클릭하면 상세 기능이 열립니다 👇</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                
-                <button onclick="openToolkitModal('step1')" class="text-left bg-white rounded-2xl overflow-hidden shadow-lg flex flex-col shape-hover group transform transition-all hover:-translate-y-2 hover:shadow-2xl hover:ring-4 ring-brand-blue/30 focus:outline-none h-full">
-                    <div class="bg-[#F8F9FC] p-6 flex justify-between items-center border-b border-gray-100 relative overflow-hidden shrink-0">
-                        <div class="relative z-10">
-                            <h3 class="ui-gothic text-xl md:text-[22px] font-black text-brand-dark tracking-tight">멘탈FT카드</h3>
-                            <p class="ui-gothic text-[13px] md:text-sm font-bold text-brand-blue mt-1 tracking-widest">CONNECTION</p>
-                        </div>
-                        <div class="shape-element w-16 h-16 bg-blue-100 rounded-2xl rotate-12 flex items-center justify-center opacity-80 relative z-10 shrink-0">
-                            <div class="w-8 h-8 border-4 border-brand-blue rounded-full"></div>
-                        </div>
-                    </div>
-                    <div class="flex-1 p-6 flex flex-col bg-white">
-                        <div class="mb-auto font-serif">
-                            <p class="text-gray-600 text-[15px] md:text-base leading-relaxed font-medium mb-5 break-keep">대면/비대면 세션 모두 활용 가능한 인사이트 도출 툴입니다. 고객의 닫힌 마음을 열고 생각의 방향을 정렬합니다.</p>
-                            <ul class="space-y-3 text-[15px] md:text-base text-gray-600 font-bold">
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-brand-blue shrink-0 mt-2"></i><span class="break-keep">주제별 멘탈코칭 & 그룹/팀코칭 지원</span></li>
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-brand-blue shrink-0 mt-2"></i><span class="break-keep">1분/5분 루틴 셀프코칭 기능</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </button>
-
-                <button onclick="openToolkitModal('step2')" class="text-left bg-white rounded-2xl overflow-hidden shadow-lg flex flex-col shape-hover group transform transition-all hover:-translate-y-2 hover:shadow-2xl hover:ring-4 ring-yellow-500/30 focus:outline-none h-full">
-                    <div class="bg-[#FDFBF7] p-6 flex justify-between items-center border-b border-gray-100 relative overflow-hidden shrink-0">
-                        <div class="relative z-10">
-                            <h3 class="ui-gothic text-xl md:text-[22px] font-black text-brand-dark tracking-tight">멘탈회복50일</h3>
-                            <p class="ui-gothic text-[13px] md:text-sm font-bold text-brand-yellow mt-1 tracking-widest">MONITORING</p>
-                        </div>
-                        <div class="shape-element w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center opacity-80 relative z-10 shrink-0">
-                            <div class="w-8 h-8 bg-brand-yellow rounded-tl-full rounded-br-full"></div>
-                        </div>
-                    </div>
-                    <div class="flex-1 p-6 flex flex-col bg-white">
-                        <div class="mb-auto font-serif">
-                            <p class="text-gray-600 text-[15px] md:text-base leading-relaxed font-medium mb-5 break-keep">세션의 공백을 채우는 50일 데일리 루틴 앱입니다. 고객의 일상 데이터를 수집하여 지속적으로 모니터링합니다.</p>
-                            <ul class="space-y-3 text-[15px] md:text-base text-gray-600 font-bold">
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-brand-yellow shrink-0 mt-2"></i><span class="break-keep">매일 멘탈온도계 및 감정 단어 기록</span></li>
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-brand-yellow shrink-0 mt-2"></i><span class="break-keep">고객 중도 이탈(Drop) 방지 밀착 케어</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </button>
-
-                <button onclick="openToolkitModal('step3')" class="text-left bg-white rounded-2xl overflow-hidden shadow-lg flex flex-col shape-hover group transform transition-all hover:-translate-y-2 hover:shadow-2xl hover:ring-4 ring-green-500/30 focus:outline-none h-full">
-                    <div class="bg-[#F4F9F5] p-6 flex justify-between items-center border-b border-gray-100 relative overflow-hidden shrink-0">
-                        <div class="relative z-10">
-                            <h3 class="ui-gothic text-xl md:text-[22px] font-black text-brand-dark tracking-tight">멘탈강화21일</h3>
-                            <p class="ui-gothic text-[13px] md:text-sm font-bold text-green-600 mt-1 tracking-widest">DEEPENING</p>
-                        </div>
-                        <div class="shape-element w-16 h-16 bg-green-100 rounded-tr-2xl rounded-bl-2xl rotate-45 flex items-center justify-center opacity-80 relative z-10 shrink-0">
-                            <div class="w-8 h-8 border-4 border-green-600"></div>
-                        </div>
-                    </div>
-                    <div class="flex-1 p-6 flex flex-col bg-white">
-                        <div class="mb-auto font-serif">
-                            <p class="text-gray-600 text-[15px] md:text-base leading-relaxed font-medium mb-5 break-keep">기초 회복을 마친 고객을 위한 심화 과제용 솔루션입니다. 집중 훈련을 통해 습관을 정착시킵니다.</p>
-                            <ul class="space-y-3 text-[15px] md:text-base text-gray-600 font-bold">
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-green-600 shrink-0 mt-2"></i><span class="break-keep">뇌과학 기반 3단계 멘탈 재설계 로드맵</span></li>
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-green-600 shrink-0 mt-2"></i><span class="break-keep">성찰 노트 작성 및 담당 코치 데이터 전송</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </button>
-
-                <button onclick="openToolkitModal('step4')" class="text-left bg-white rounded-2xl overflow-hidden shadow-lg flex flex-col shape-hover group transform transition-all hover:-translate-y-2 hover:shadow-2xl hover:ring-4 ring-purple-500/30 focus:outline-none h-full">
-                    <div class="bg-[#F5F5FA] p-6 flex justify-between items-center border-b border-gray-100 relative overflow-hidden shrink-0">
-                        <div class="relative z-10">
-                            <h3 class="ui-gothic text-xl md:text-[22px] font-black text-brand-dark tracking-tight">멘탈지수검사</h3>
-                            <p class="ui-gothic text-[13px] md:text-sm font-bold text-purple-600 mt-1 tracking-widest">DIAGNOSIS</p>
-                        </div>
-                        <div class="shape-element w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center opacity-80 relative z-10 shrink-0">
-                            <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-                                <div class="w-3 h-3 bg-white rounded-full"></div>
+                            <div class="w-9 h-9 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-[#00B084] group-hover:text-white transition-all shadow-sm shrink-0 self-end sm:self-auto">
+                                <i class="fas fa-user-tie text-xs"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="flex-1 p-6 flex flex-col bg-white">
-                        <div class="mb-auto font-serif">
-                            <p class="text-gray-600 text-[15px] md:text-base leading-relaxed font-medium mb-5 break-keep">코칭 개입 전후 상태를 수치화하여 측정하는 객관적 도구입니다. 코칭 성과를 데이터로 입증합니다.</p>
-                            <ul class="space-y-3 text-[15px] md:text-base text-gray-600 font-bold">
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0 mt-2"></i><span class="break-keep">5대 영역 10개 항목 정밀 밸런스 측정</span></li>
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0 mt-2"></i><span class="break-keep">결과 분석 리포트 및 맞춤형 코칭 팁 제공</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </button>
-
-                <button onclick="openToolkitModal('step0')" class="text-left bg-white rounded-2xl overflow-hidden shadow-lg flex flex-col shape-hover group transform transition-all hover:-translate-y-2 hover:shadow-2xl hover:ring-4 ring-gray-400/30 focus:outline-none h-full">
-                    <div class="bg-gray-100 p-6 flex justify-between items-center border-b border-gray-200 relative overflow-hidden shrink-0">
-                        <div class="relative z-10">
-                            <h3 class="ui-gothic text-xl md:text-[22px] font-black text-brand-dark tracking-tight">리스타트온 성공루틴</h3>
-                            <p class="ui-gothic text-[13px] md:text-sm font-bold text-gray-600 mt-1 tracking-widest">ROUTINE</p>
-                        </div>
-                        <div class="shape-element w-16 h-16 bg-white rounded-2xl rotate-12 flex items-center justify-center opacity-80 relative z-10 shrink-0 shadow-sm">
-                            <svg class="w-8 h-8 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        </div>
-                    </div>
-                    <div class="flex-1 p-6 flex flex-col bg-white">
-                        <div class="mb-auto font-serif">
-                            <p class="text-gray-600 text-[15px] md:text-base leading-relaxed font-medium mb-5 break-keep">확언필사로 마인드셋을 다지고, 촘촘한 계획으로 모든 일정을 완벽하게 클리어 할 수 있도록 합니다. 자기계발과 관리에 최적화된 앱입니다.</p>
-                            <ul class="space-y-3 text-[15px] md:text-base text-gray-600 font-bold">
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-gray-600 shrink-0 mt-2"></i><span class="break-keep">아침/저녁 긍정 확언 필사 기능</span></li>
-                                <li class="flex items-start gap-3"><i class="w-1.5 h-1.5 rounded-full bg-gray-600 shrink-0 mt-2"></i><span class="break-keep">체계적인 데일리 스케줄링 및 달성률 시각화</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section id="app-links" class="py-24 px-4 bg-[#F8F9FA] relative z-10 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="ui-gothic text-brand-blue font-bold tracking-widest text-sm mb-3 block">APP SHORTCUTS</span>
-                <h2 class="ui-gothic text-2xl md:text-3xl lg:text-4xl font-black text-brand-dark mb-4 break-keep">멘탈온 전용 앱 바로가기</h2>
-                <p class="text-gray-500 font-serif text-[15px] md:text-base break-keep">원하시는 도구를 선택하여 실행하세요.<br class="hidden md:block">유료회원으로 로그인 시 모든 기능을 제한 없이 이용하실 수 있습니다.</p>
-            </div>
-
-            <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5 max-w-5xl mx-auto">
-                <div onclick="checkAuthAndRedirect('https://mental-ftcard.netlify.app')" class="bg-white rounded-[1.25rem] p-5 shadow-sm hover:shadow-md hover:-translate-y-1 cursor-pointer group transition-all flex flex-col items-center justify-center relative border border-gray-100 h-36 md:h-40">
-                    <div class="premium-lock-badge absolute top-3 right-3 bg-gray-100/80 text-gray-500 text-[10px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 ui-gothic transition-colors">
-                        <svg class="w-3 h-3 lock-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg><span>Premium</span>
-                    </div>
-                    <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                    </div>
-                    <h4 class="ui-gothic text-[15px] md:text-base font-bold text-gray-900 group-hover:text-brand-blue transition-colors text-center">멘탈FT카드</h4>
-                </div>
-                
-                <div onclick="checkAuthAndRedirect('https://mental-recovery-book.netlify.app')" class="bg-white rounded-[1.25rem] p-5 shadow-sm hover:shadow-md hover:-translate-y-1 cursor-pointer group transition-all flex flex-col items-center justify-center relative border border-gray-100 h-36 md:h-40">
-                    <div class="premium-lock-badge absolute top-3 right-3 bg-gray-100/80 text-gray-500 text-[10px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 ui-gothic transition-colors">
-                        <svg class="w-3 h-3 lock-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg><span>Premium</span>
-                    </div>
-                    <div class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h4 class="ui-gothic text-[15px] md:text-base font-bold text-gray-900 group-hover:text-yellow-600 transition-colors text-center">멘탈회복50일</h4>
                 </div>
 
-                <div onclick="checkAuthAndRedirect('https://memtalpowerbook1.netlify.app')" class="bg-white rounded-[1.25rem] p-5 shadow-sm hover:shadow-md hover:-translate-y-1 cursor-pointer group transition-all flex flex-col items-center justify-center relative border border-gray-100 h-36 md:h-40">
-                    <div class="premium-lock-badge absolute top-3 right-3 bg-gray-100/80 text-gray-500 text-[10px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 ui-gothic transition-colors">
-                        <svg class="w-3 h-3 lock-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg><span>Premium</span>
-                    </div>
-                    <div class="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h4 class="ui-gothic text-[15px] md:text-base font-bold text-gray-900 group-hover:text-green-600 transition-colors text-center">멘탈강화21일</h4>
+            </div>
+        </header>
+
+        <!-- 50일 커리큘럼 섹션 -->
+        <section id="curriculum-section" class="py-24 md:py-32 px-5 md:px-10 bg-white border-b border-gray-100">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20">
+                    <span class="text-brand-blue font-bold tracking-widest text-sm mb-3 block">5-STEP CURRICULUM</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-5 break-keep heading-tight">멘탈회복으로 행복한 50일 여정</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto text-base md:text-lg break-keep leading-[1.8]">막연한 위로가 아닌, 체계적인 시스템으로 당신의 내면을 재설계합니다.</p>
                 </div>
 
-                <div onclick="checkAuthAndRedirect('https://mental-survey.netlify.app')" class="bg-white rounded-[1.25rem] p-5 shadow-sm hover:shadow-md hover:-translate-y-1 cursor-pointer group transition-all flex flex-col items-center justify-center relative border border-gray-100 h-36 md:h-40">
-                    <div class="premium-lock-badge absolute top-3 right-3 bg-gray-100/80 text-gray-500 text-[10px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 ui-gothic transition-colors">
-                        <svg class="w-3 h-3 lock-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg><span>Premium</span>
-                    </div>
-                    <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    </div>
-                    <h4 class="ui-gothic text-[15px] md:text-base font-bold text-gray-900 group-hover:text-purple-600 transition-colors text-center">멘탈지수검사</h4>
-                </div>
-
-                <div onclick="checkAuthAndRedirect('https://success-compass.netlify.app/')" class="bg-white rounded-[1.25rem] p-5 shadow-sm hover:shadow-md hover:-translate-y-1 cursor-pointer group transition-all flex flex-col items-center justify-center relative border border-gray-100 h-36 md:h-40 sm:col-span-2 lg:col-span-1">
-                    <div class="premium-lock-badge absolute top-3 right-3 bg-gray-100/80 text-gray-500 text-[10px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 ui-gothic transition-colors">
-                        <svg class="w-3 h-3 lock-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg><span>Premium</span>
-                    </div>
-                    <div class="w-14 h-14 bg-gray-100 text-gray-700 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h4 class="ui-gothic text-[15px] md:text-base font-bold text-gray-900 group-hover:text-brand-blue transition-colors text-center whitespace-nowrap">성공루틴</h4>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="py-24 px-4 bg-brand-light relative z-10">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="ui-gothic text-brand-blue font-bold tracking-widest text-sm mb-3 block">FAQ</span>
-                <h2 class="ui-gothic text-2xl md:text-3xl font-black text-brand-dark mb-4">자주 묻는 질문</h2>
-            </div>
-            <div class="space-y-4">
-                <details class="bg-white rounded-xl border border-brand-dark/10 shadow-sm cursor-pointer group">
-                    <summary class="flex justify-between items-center font-bold text-brand-dark p-6 ui-gothic">
-                        <span class="text-[16px] md:text-[17px]">멘탈온 시리즈(교재)를 구매하려면 어떻게 하나요?</span>
-                        <span class="text-brand-blue transition group-open:rotate-180 shrink-0 ml-4"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600 text-[15px] md:text-base leading-relaxed border-t border-gray-100 pt-4 mt-2 break-keep font-serif">
-                        멘탈온 실물 교재는 리스타트온 공식 스마트스토어에서 구매 가능합니다.<br>설명회 전까지 교재 구매를 완료하시면 파일럿 런칭 설명회에 정상 참여 가능합니다.
-                    </div>
-                </details>
-                <details class="bg-white rounded-xl border border-brand-dark/10 shadow-sm cursor-pointer group">
-                    <summary class="flex justify-between items-center font-bold text-brand-dark p-6 ui-gothic">
-                        <span class="text-[16px] md:text-[17px]">파일럿 프로그램에 참여하면 전용 앱은 무료인가요?</span>
-                        <span class="text-brand-blue transition group-open:rotate-180 shrink-0 ml-4"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
-                    </summary>
-                    <div class="px-6 pb-6 text-gray-600 text-[15px] md:text-base leading-relaxed border-t border-gray-100 pt-4 mt-2 break-keep font-serif">
-                        네, 맞습니다. 설명회 참석 후 파일럿 도입을 결정하시면 고객들과 함께 <strong>전면 무료로 이용</strong>하실 수 있는 특별 혜택을 제공합니다.
-                    </div>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-brand-dark text-white pt-16 pb-8 border-t border-white/10 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8 mb-12">
-            <div class="col-span-2">
-                <h3 class="ui-gothic text-xl md:text-2xl font-black mb-4 text-brand-yellow">RESTART ON <span class="text-[13px] md:text-sm font-medium text-white/80 ml-2">COACHING PARTNERS</span></h3>
-                <p class="text-white/70 mb-6 max-w-md leading-relaxed text-[14px] md:text-[15px] break-keep font-serif">
-                    멘탈온은 감정-사고-행동의 흐름을 성장으로 전환시키는 리스타트코칭파트너스의 멘탈회복 전문 브랜드입니다.
-                </p>
-            </div>
-            <div class="col-span-2">
-                <h4 class="ui-gothic text-lg font-bold mb-4">Contact</h4>
-                <ul class="space-y-3 text-white/70 text-[14px] md:text-[15px] font-serif break-keep">
-                    <li>onmentalon@gmail.com</li>
-                    <li>052-700-0429</li>
-                    <li>울산광역시 중구 종가로 406-21 울산비즈파크 430호</li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-
-    <!-- 로그인/회원가입 모달 -->
-    <div id="authModal" class="fixed inset-0 z-[60] flex items-center justify-center hidden">
-        <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm backdrop-transition" onclick="closeAuthModal()"></div>
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 relative z-10 modal-content-transition max-h-[90vh] flex flex-col overflow-hidden">
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none z-20"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <div class="p-6 md:p-8 overflow-y-auto no-scrollbar font-serif">
-                <div class="text-center mb-6">
-                    <h3 class="ui-gothic text-2xl font-black text-brand-dark" id="authModalTitle">회원가입</h3>
-                    <p class="text-gray-500 text-sm mt-2" id="authModalDesc">멘탈온 코칭 앱 사용을 위한 정보 입력</p>
-                </div>
-                <form id="authForm" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1 ui-gothic">이름</label>
-                        <input type="text" id="authName" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-blue outline-none ui-gothic" placeholder="홍길동">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1 ui-gothic">전화번호 (ID)</label>
-                        <input type="tel" id="authPhone" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-blue outline-none ui-gothic" placeholder="010-0000-0000">
-                    </div>
-                    <button type="submit" class="ui-gothic w-full bg-brand-blue hover:bg-blue-600 text-white font-bold py-3.5 rounded-xl transition-colors mt-4">완료</button>
-                    <div class="text-center mt-3">
-                        <button type="button" onclick="toggleAuthMode()" class="text-sm text-gray-500 hover:text-brand-blue underline" id="authToggleBtn">이미 계정이 있으신가요? 로그인</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- 마이페이지 모달 -->
-    <div id="myPageModal" class="fixed inset-0 z-[60] flex items-center justify-center hidden">
-        <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm backdrop-transition" onclick="closeMyPageModal()"></div>
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 relative z-10 modal-content-transition max-h-[90vh] flex flex-col overflow-hidden p-6 text-center">
-            <button onclick="closeMyPageModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <div class="w-16 h-16 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-black ui-gothic" id="myPageAvatar">홍</div>
-            <h3 class="ui-gothic text-xl font-black text-brand-dark mb-1" id="myPageName">홍길동님</h3>
-            <p class="text-sm text-gray-500 mb-4 font-serif" id="myPagePhone">010-0000-0000</p>
-            <div class="bg-gray-50 rounded-xl p-4 mb-4 border border-gray-100">
-                <p class="text-sm font-bold text-gray-700 ui-gothic mb-1">현재 이용 중인 멤버십</p>
-                <div id="myPageTierDisplay" class="text-lg font-black text-brand-blue ui-gothic flex items-center justify-center gap-1"></div>
-            </div>
-            
-            <div id="upgradeSection" class="mb-6 hidden text-left">
-                <div class="bg-blue-50/70 rounded-xl p-4 border border-blue-100">
-                    <p class="text-[13px] font-bold text-brand-dark mb-2 break-keep">설명회 참석자이신가요?<br>프로모션 코드를 입력하고 프리미엄 혜택을 받으세요.</p>
-                    <div class="flex gap-2">
-                        <input type="text" id="promoCodeInput" placeholder="코드 입력 (예: VIP2026)" class="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm outline-none focus:ring-2 focus:ring-brand-blue">
-                        <button onclick="applyPromoCode()" class="bg-brand-dark text-white px-3 py-2 rounded-lg text-sm font-bold whitespace-nowrap hover:bg-gray-800 transition-colors">등록</button>
-                    </div>
-                </div>
-            </div>
-
-            <button onclick="handleLogout()" class="ui-gothic w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl transition-colors">로그아웃</button>
-        </div>
-    </div>
-
-    <!-- 공지사항 모달 -->
-    <div id="noticeModal" class="fixed inset-0 z-[60] flex items-center justify-center hidden">
-        <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm backdrop-transition" onclick="closeNoticeModal()"></div>
-        <div class="bg-gray-50 rounded-2xl shadow-2xl w-full max-w-lg mx-4 relative z-10 modal-content-transition max-h-[85vh] flex flex-col overflow-hidden">
-            <div class="bg-white p-5 border-b border-gray-100 flex justify-between items-center relative z-20 shadow-sm">
-                <h3 class="ui-gothic text-xl font-black text-brand-dark">공지사항</h3>
-                <button onclick="closeNoticeModal()" class="text-gray-400 hover:text-gray-600 focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            </div>
-            <div class="p-4 md:p-6 overflow-y-auto no-scrollbar font-serif bg-gray-50/50" id="noticeListContainer">
-                <!-- JS로 공지사항 리스트 렌더링됨 -->
-            </div>
-        </div>
-    </div>
-
-    <!-- 설명회 안내 팝업 -->
-    <div id="promoPopup" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-        <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm backdrop-transition" onclick="closePromoPopup()"></div>
-        <div class="bg-gradient-to-br from-[#152C5B] to-[#0f2146] border border-blue-900/50 rounded-[1.8rem] w-full max-w-md mx-4 relative z-10 modal-content-transition shadow-2xl overflow-hidden">
-            <button onclick="closePromoPopup()" class="absolute top-4 right-4 text-white/50 hover:text-white focus:outline-none z-20 bg-black/20 rounded-full p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <div class="p-8 text-white relative flex flex-col h-full">
-                <div class="text-center mb-6">
-                    <span class="ui-gothic bg-blue-900/50 text-brand-yellow border border-brand-yellow/30 font-bold tracking-widest text-xs py-1 px-3 rounded-full mb-4 inline-block">VIP INVITATION</span>
-                    <h2 class="ui-gothic text-2xl md:text-[28px] font-black leading-tight break-keep">멘탈온 O2O 파일럿<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-yellow to-yellow-200">런칭 온라인 설명회</span></h2>
-                </div>
-                <ul class="space-y-4 mb-6 text-[14px] md:text-[15px] font-medium break-keep font-serif">
-                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-brand-yellow shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span class="text-gray-100">앱과 루틴북 연계 실전 시연</span></li>
-                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-brand-yellow shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span class="text-gray-100">파일럿 참여 한정 <strong class="text-brand-yellow">앱 무료 이용권 제공</strong></span></li>
-                </ul>
-                <div class="ui-gothic bg-[#0f2146] p-5 rounded-2xl border border-white/10 text-center mb-6 shadow-inner">
-                    <div class="text-blue-200 text-base font-bold border-b border-white/10 pb-2 mb-3">일시 (Zoom Live / 택 1)</div>
-                    <div class="flex flex-col gap-2">
-                        <div class="flex items-center justify-center gap-2"><span class="text-lg font-bold text-white">8. 14 (금)</span><span class="text-lg text-brand-yellow font-black">AM 10:30 / PM 03:00</span></div>
-                        <div class="flex items-center justify-center gap-2"><span class="text-lg font-bold text-white">8. 15 (토)</span><span class="text-lg text-brand-yellow font-black">AM 10:30</span></div>
-                    </div>
-                </div>
-                <button onclick="closePromoPopup(); openWebinarModal();" class="ui-gothic w-full bg-brand-blue hover:bg-blue-600 text-white font-black py-4 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(29,78,216,0.5)] text-base md:text-lg flex justify-center items-center">무료 설명회 신청하기</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 우측 하단 플로팅 신청 버튼 -->
-    <button onclick="openWebinarModal()" class="fixed bottom-6 right-6 w-14 h-14 bg-brand-blue text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-blue-600 transition-all z-40 focus:outline-none hover:scale-110">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-    </button>
-
-    <!-- 설명회 신청 모달 (구글폼 연동) -->
-    <div id="webinarModal" class="fixed inset-0 z-[55] flex items-center justify-center hidden">
-        <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm backdrop-transition" onclick="closeWebinarModal()"></div>
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 relative z-10 modal-content-transition max-h-[90vh] flex flex-col">
-            <button onclick="closeWebinarModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none z-10"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <div class="p-6 md:p-8 overflow-y-auto no-scrollbar">
-                <div class="text-center mb-6">
-                    <span class="ui-gothic bg-brand-yellow/20 text-yellow-700 font-bold tracking-widest text-xs py-1 px-3 rounded-full mb-3 inline-block">선착순 마감</span>
-                    <h3 class="ui-gothic text-2xl font-black text-brand-dark">설명회 신청하기</h3>
-                </div>
-                <form id="applyForm" class="space-y-4 font-serif">
-                    <div><label class="block text-sm font-bold text-gray-700 mb-1 ui-gothic">성함 *</label><input type="text" id="entryName" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-blue outline-none ui-gothic"></div>
-                    <div><label class="block text-sm font-bold text-gray-700 mb-1 ui-gothic">소속 *</label><input type="text" id="entryOrg" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-blue outline-none ui-gothic"></div>
-                    <div><label class="block text-sm font-bold text-gray-700 mb-1 ui-gothic">연락처 *</label><input type="tel" id="entryPhone" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-blue outline-none ui-gothic"></div>
-                    <div><label class="block text-sm font-bold text-gray-700 mb-1 ui-gothic">이메일 *</label><input type="email" id="entryEmail" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-blue outline-none ui-gothic"></div>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10 -translate-y-1/2"></div>
                     
-                    <div class="pt-2">
-                        <label class="block text-sm font-bold text-gray-700 mb-2 ui-gothic">참석 희망 일정 *</label>
-                        <div class="space-y-2 ui-gothic">
-                            <label class="flex items-center p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50"><input type="radio" name="schedule" value="8/14(금) 오전 10:30" required class="w-4 h-4 text-brand-blue"><span class="ml-3 text-[15px] font-medium">8/14 (금) 오전 10:30</span></label>
-                            <label class="flex items-center p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50"><input type="radio" name="schedule" value="8/14(금) 오후 3:00" class="w-4 h-4 text-brand-blue"><span class="ml-3 text-[15px] font-medium">8/14 (금) 오후 03:00</span></label>
-                            <label class="flex items-center p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50"><input type="radio" name="schedule" value="8/15(토) 오전 10:30" class="w-4 h-4 text-brand-blue"><span class="ml-3 text-[15px] font-medium">8/15 (토) 오전 10:30</span></label>
+                    <!-- Step 1 -->
+                    <div class="bg-white p-7 rounded-2xl border border-gray-100 shadow-sm text-center relative z-10 hover:-translate-y-2 transition-transform duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-5 text-2xl font-black shadow-sm group-hover:scale-110 transition-transform"><i class="fas fa-clipboard-check"></i></div>
+                            <div class="text-xs font-bold text-gray-400 mb-1.5 tracking-wider">STEP 1</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">진단</h3>
+                            <p class="text-sm text-gray-600 leading-[1.7] break-keep">멘탈지수검사는 나의 멘탈강점과 약점을 알려줍니다. 지피지기면 백전백승입니다. 데이터로 확인하세요.</p>
                         </div>
                     </div>
-                    <div class="pt-2">
-                        <label class="block text-sm font-bold text-gray-700 mb-2 ui-gothic">교재 보유 현황 *</label>
-                        <select id="entryTextbook" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-blue outline-none ui-gothic">
-                            <option value="">선택해주세요</option>
-                            <option value="둘 다 보유">둘 다 보유 (루틴북 + FT카드)</option>
-                            <option value="루틴북만 보유">루틴북만 보유</option>
-                            <option value="FT카드만 보유">FT카드만 보유</option>
-                            <option value="미보유">미보유 (설명회 전 구매 예정)</option>
-                        </select>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white p-7 rounded-2xl border border-gray-100 shadow-sm text-center relative z-10 hover:-translate-y-2 transition-transform duration-300 group md:mt-8 flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-5 text-2xl font-black shadow-sm group-hover:scale-110 transition-transform"><i class="fas fa-link"></i></div>
+                            <div class="text-xs font-bold text-gray-400 mb-1.5 tracking-wider">STEP 2</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">연결</h3>
+                            <p class="text-sm text-gray-600 leading-[1.7] break-keep">멘탈FT카드를 통해 아주 쉽게 멘탈을 관리합니다. 코치와의 소통도 효율적으로 합니다. 빠른시간에 이슈를 정리할 수 있습니다.</p>
+                        </div>
                     </div>
-                    <button type="submit" id="submitBtn" class="ui-gothic w-full bg-brand-dark hover:bg-gray-800 text-white font-bold py-4 rounded-xl mt-6">무료 초청장 받기</button>
-                </form>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white p-7 rounded-2xl border border-gray-100 shadow-sm text-center relative z-10 hover:-translate-y-2 transition-transform duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-5 text-2xl font-black shadow-sm group-hover:scale-110 transition-transform"><i class="fas fa-leaf"></i></div>
+                            <div class="text-xs font-bold text-gray-400 mb-1.5 tracking-wider">STEP 3</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">회복</h3>
+                            <p class="text-sm text-gray-600 leading-[1.7] break-keep">멘탈회복 50일 루틴 앱으로 매일 멘탈틀과 멘탈훈련메시지를 뇌에 각인합니다. 멘탈이 흔들리는 상황에서 이 메시지들이 자신을 지켜주는 것을 경험하게 됩니다. 셀프감정코칭도 할수있어서 자존감이 상승합니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-white p-7 rounded-2xl border border-gray-100 shadow-sm text-center relative z-10 hover:-translate-y-2 transition-transform duration-300 group md:mt-8 flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-5 text-2xl font-black shadow-sm group-hover:scale-110 transition-transform"><i class="fas fa-seedling"></i></div>
+                            <div class="text-xs font-bold text-gray-400 mb-1.5 tracking-wider">STEP 4</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">강화</h3>
+                            <p class="text-sm text-gray-600 leading-[1.7] break-keep">50일 회복 루틴 완주후 강화21일 루틴을 마주하게 됩니다. 변화와 실천의 에너지가 끊임없이 내안에서 공급되는 것을 경험하게 됩니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="bg-white p-7 rounded-2xl border border-gray-100 shadow-sm text-center relative z-10 hover:-translate-y-2 transition-transform duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 bg-gray-100 text-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-2xl font-black shadow-sm group-hover:scale-110 transition-transform"><i class="fas fa-route"></i></div>
+                            <div class="text-xs font-bold text-gray-400 mb-1.5 tracking-wider">STEP 5</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">유지</h3>
+                            <p class="text-sm text-gray-600 leading-[1.7] break-keep">성공루틴 앱으로 단단해진 멘탈을 일상에 적용하고 목표를 향해 나아갑니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 마이 대시보드 섹션 -->
+        <section id="dashboard-section" class="py-24 md:py-32 px-5 md:px-10 bg-gray-50/80">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                    <div>
+                        <span class="text-brand-blue font-bold tracking-widest text-sm mb-3 block">MY DASHBOARD</span>
+                        <h2 class="text-2xl md:text-3xl font-black text-gray-900 break-keep">나만의 멘탈 관리 공간</h2>
+                        <p class="text-gray-600 mt-3 text-base md:text-lg leading-relaxed">이용권을 구매하시면 모든 코칭 앱을 제한 없이 사용할 수 있습니다.</p>
+                    </div>
+                    <button onclick="switchView('checkout')" class="mt-6 md:mt-0 text-sm font-bold text-white bg-gray-900 px-6 py-3 rounded-xl hover:bg-gray-800 transition shadow-sm">
+                        이용권 구매하기
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-5">
+                    <div onclick="handleAppClick('진단검사', 'https://mental-survey.netlify.app')" class="bg-white border border-gray-200/80 rounded-2xl p-6 flex flex-col items-center justify-center h-40 cursor-pointer hover:border-purple-300 hover:shadow-lg transition relative group">
+                         <div class="absolute top-3.5 right-3.5 auth-lock-icon text-gray-300"><i class="fas fa-lock text-sm"></i></div>
+                         <div class="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center mb-3 text-purple-600 group-hover:scale-110 transition-transform"><i class="fas fa-clipboard-list text-xl"></i></div>
+                         <span class="text-[15px] font-bold text-gray-800">진단검사</span>
+                    </div>
+                    <div onclick="handleAppClick('FT카드', 'https://mental-ftcard.netlify.app')" class="bg-white border border-gray-200/80 rounded-2xl p-6 flex flex-col items-center justify-center h-40 cursor-pointer hover:border-blue-300 hover:shadow-lg transition relative group">
+                         <div class="absolute top-3.5 right-3.5 auth-lock-icon text-gray-300"><i class="fas fa-lock text-sm"></i></div>
+                         <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-3 text-blue-600 group-hover:scale-110 transition-transform"><i class="far fa-comments text-xl"></i></div>
+                         <span class="text-[15px] font-bold text-gray-800">FT카드</span>
+                    </div>
+                    <div onclick="handleAppClick('회복50일', 'https://mental-recovery-book.netlify.app')" class="bg-white border border-gray-200/80 rounded-2xl p-6 flex flex-col items-center justify-center h-40 cursor-pointer hover:border-amber-300 hover:shadow-lg transition relative group">
+                         <div class="absolute top-3.5 right-3.5 auth-lock-icon text-gray-300"><i class="fas fa-lock text-sm"></i></div>
+                         <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center mb-3 text-amber-600 group-hover:scale-110 transition-transform"><i class="fas fa-heart-pulse text-xl"></i></div>
+                         <span class="text-[15px] font-bold text-gray-800">회복50일</span>
+                    </div>
+                    <div onclick="handleAppClick('강화21일', 'https://memtalpowerbook1.netlify.app')" class="bg-white border border-gray-200/80 rounded-2xl p-6 flex flex-col items-center justify-center h-40 cursor-pointer hover:border-emerald-300 hover:shadow-lg transition relative group">
+                         <div class="absolute top-3.5 right-3.5 auth-lock-icon text-gray-300"><i class="fas fa-lock text-sm"></i></div>
+                         <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-3 text-emerald-600 group-hover:scale-110 transition-transform"><i class="fas fa-dumbbell text-xl"></i></div>
+                         <span class="text-[15px] font-bold text-gray-800">강화21일</span>
+                    </div>
+                    <div onclick="handleAppClick('성공루틴', 'https://success-compass.netlify.app/')" class="bg-white border border-gray-200/80 rounded-2xl p-6 flex flex-col items-center justify-center h-40 cursor-pointer hover:border-gray-400 hover:shadow-lg transition relative group col-span-2 md:col-span-1">
+                         <div class="absolute top-3.5 right-3.5 auth-lock-icon text-gray-300"><i class="fas fa-lock text-sm"></i></div>
+                         <div class="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-3 text-gray-700 group-hover:scale-110 transition-transform"><i class="fas fa-route text-xl"></i></div>
+                         <span class="text-[15px] font-bold text-gray-800">성공루틴</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 구독 / 결제 뷰 -->
+    <div id="view-checkout" class="hidden pt-28 pb-24 min-h-screen bg-gray-50">
+        <div class="max-w-6xl mx-auto px-5 md:px-10">
+            <div class="mb-10">
+                <h1 class="text-3xl font-black text-gray-900 mb-3">구독 / 결제</h1>
+                <p class="text-gray-600 text-base leading-relaxed">나에게 가장 적합한 멘탈 케어 옵션을 선택해 보세요.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-10">
+                <div class="lg:col-span-2 space-y-5">
+                    
+                    <!-- 옵션 1 -->
+                    <label class="block cursor-pointer relative">
+                        <input type="radio" name="plan" value="free" class="peer sr-only plan-radio" onchange="updatePlanSelection('free')">
+                        <div class="bg-white border-2 border-gray-200/80 rounded-2xl p-7 transition-all hover:border-gray-300 relative">
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center check-icon opacity-0"><i class="fas fa-check text-[10px]"></i></div>
+                                    <span class="text-xl font-bold text-gray-900">1주일 체험</span>
+                                </div>
+                                <span class="text-xl font-black text-gray-900">무료</span>
+                            </div>
+                            <p class="text-sm text-gray-600 ml-9 leading-relaxed">멘탈온 앱의 기본 기능을 7일간 자유롭게 체험해볼 수 있습니다.</p>
+                        </div>
+                    </label>
+
+                    <!-- 옵션 2 -->
+                    <label class="block cursor-pointer relative">
+                        <input type="radio" name="plan" value="basic" class="peer sr-only plan-radio" onchange="updatePlanSelection('basic')">
+                        <div class="bg-white border-2 border-gray-200/80 rounded-2xl p-7 transition-all hover:border-gray-300 relative">
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center check-icon opacity-0"><i class="fas fa-check text-[10px]"></i></div>
+                                    <span class="text-xl font-bold text-gray-900">10일 단기 케어</span>
+                                </div>
+                                <span class="text-xl font-black text-gray-900">10,000 원</span>
+                            </div>
+                            <p class="text-sm text-gray-600 ml-9 leading-relaxed">원하는 카테고리 1개를 선택하여 10일간 집중 관리합니다.</p>
+                        </div>
+                    </label>
+
+                    <!-- 옵션 3 -->
+                    <label class="block cursor-pointer relative">
+                        <input type="radio" name="plan" value="standard" class="peer sr-only plan-radio" onchange="updatePlanSelection('standard')">
+                        <div class="bg-white border-2 border-gray-200/80 rounded-2xl p-7 transition-all hover:border-gray-300 relative">
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center check-icon opacity-0"><i class="fas fa-check text-[10px]"></i></div>
+                                    <span class="text-xl font-bold text-gray-900">50일 루틴 패키지</span>
+                                </div>
+                                <span class="text-xl font-black text-gray-900">50,000 원</span>
+                            </div>
+                            <p class="text-sm text-gray-600 ml-9 leading-relaxed">50일간 멘탈온의 모든 앱과 진단검사를 무제한 이용합니다.</p>
+                        </div>
+                    </label>
+
+                    <!-- 옵션 4 -->
+                    <label class="block cursor-pointer relative">
+                        <input type="radio" name="plan" value="premium" class="peer sr-only plan-radio" onchange="updatePlanSelection('premium')" checked>
+                        <div class="absolute -top-3.5 left-7 bg-brand-blue text-white text-xs font-bold px-3.5 py-1 rounded-full z-10 shadow-md">Best Pick!</div>
+                        <div class="bg-white border-2 border-brand-blue rounded-2xl p-7 transition-all relative mt-3 shadow-[0_8px_30px_rgba(0,200,151,0.12)]">
+                            <div class="flex justify-between items-center mb-5">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-6 h-6 rounded-full border-2 border-brand-blue flex items-center justify-center text-brand-blue"><i class="fas fa-check text-[10px]"></i></div>
+                                    <span class="text-xl font-bold text-gray-900">50일 밀착 케어 + 1:1 코칭 5회</span>
+                                </div>
+                                <span class="text-2xl font-black text-brand-blue">200,000 원</span>
+                            </div>
+                            <ul class="text-sm text-gray-600 ml-9 space-y-3 leading-relaxed">
+                                <li>• 전담 멘탈 코치 배정 및 1:1 비대면 코칭 5회 (주 1회)</li>
+                                <li>• 사전 / 사후 멘탈 지수 정밀 진단 리포트</li>
+                                <li>• 50일간 멘탈온 전용 앱 무제한 및 코치 모니터링</li>
+                                <li>• 멘탈 FT 실물 카드 및 루틴북 배송</li>
+                            </ul>
+                        </div>
+                    </label>
+
+                    <div class="mt-10 pt-8 border-t border-gray-200">
+                        <h3 class="font-bold text-gray-900 mb-5">결제수단 선택</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <button class="border border-brand-blue bg-emerald-50 text-brand-blue font-bold py-3.5 rounded-xl text-sm">신용카드</button>
+                            <button class="border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium py-3.5 rounded-xl text-sm transition">토스페이</button>
+                            <button class="border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium py-3.5 rounded-xl text-sm transition">카카오페이</button>
+                            <button class="border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium py-3.5 rounded-xl text-sm transition">가상계좌</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 sticky top-28">
+                        <h3 class="font-bold text-gray-900 border-b border-gray-100 pb-5 mb-5 text-lg">결제 금액 요약</h3>
+                        
+                        <div class="space-y-4 text-sm text-gray-600 mb-8">
+                            <div class="flex justify-between">
+                                <span>선택 상품</span>
+                                <span class="font-bold text-gray-900" id="summary-name">50일 밀착 케어 + 코칭 5회</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>상품 정가</span>
+                                <span id="summary-price" class="line-through text-gray-400">250,000 원</span>
+                            </div>
+                            <div class="flex justify-between text-brand-blue font-medium">
+                                <span>특별 할인</span>
+                                <span id="summary-discount">- 50,000 원</span>
+                            </div>
+                            <div class="flex justify-between font-bold text-gray-900 pt-2 border-t border-gray-50">
+                                <span>이용 기간</span>
+                                <span id="summary-period">50일</span>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-100 pt-5 mb-8">
+                            <div class="flex justify-between items-end">
+                                <span class="font-bold text-gray-900">최종 결제 금액</span>
+                                <span class="text-3xl font-black text-brand-blue" id="summary-total">200,000 원</span>
+                            </div>
+                        </div>
+
+                        <label class="flex items-start gap-3 mb-8 cursor-pointer">
+                            <input type="checkbox" id="agreeCheckout" class="mt-1 accent-brand-blue rounded">
+                            <span class="text-xs text-gray-500 leading-relaxed">[필수] 결제할 상품의 내용을 확인하였으며, 취소/환불 규정에 동의합니다.</span>
+                        </label>
+
+                        <button onclick="processPayment()" class="w-full bg-brand-blue text-white font-bold py-4 rounded-2xl text-lg shadow-lg hover:bg-brand-blueHover transition-colors">
+                            결제하기
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- 툴킷 상세 모달 -->
-    <div id="toolkitModal" class="fixed inset-0 z-[55] flex items-center justify-center hidden">
-        <div class="absolute inset-0 bg-brand-dark/90 backdrop-blur-sm backdrop-transition" onclick="closeToolkitModal()"></div>
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 relative z-10 modal-content-transition overflow-hidden flex flex-col max-h-[90vh]">
-            <button onclick="closeToolkitModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none z-20 bg-white/50 rounded-full p-1"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <div id="toolkitModalContent" class="overflow-y-auto font-serif"></div>
+    <!-- 코치 프로필 모달 -->
+    <div id="coachProfilesModal" class="fixed inset-0 z-[60] flex items-center justify-center hidden">
+        <div class="absolute inset-0 bg-black/75 backdrop-blur-sm" onclick="closeModal('coachProfiles')"></div>
+        <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-2xl mx-4 relative z-10 p-8 md:p-10 modal-content-transition transform scale-95 opacity-0 max-h-[90vh] overflow-y-auto no-scrollbar">
+            <button onclick="closeModal('coachProfiles')" class="absolute top-7 right-7 text-gray-400 hover:text-gray-600 bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center transition">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+            
+            <div class="text-left mb-8">
+                <span class="text-brand-blue font-bold text-xs sm:text-sm tracking-widest block mb-2">RESTART COACHING PARTNERS</span>
+                <h3 class="text-2xl md:text-3xl font-black text-gray-900">전문 멘탈 코치진 프로필</h3>
+                <p class="text-gray-600 text-sm md:text-base mt-2 leading-relaxed">당신의 일상과 멘탈 회복을 1:1 밀착해서 함께하는 검증된 파트너 코치입니다.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- 코치 1 -->
+                <div class="bg-gray-50/80 border border-gray-200/80 rounded-2xl p-6 hover:border-brand-blue transition-all">
+                    <div class="flex items-start gap-5">
+                        <div class="w-16 h-16 rounded-2xl bg-[#0d4734] text-white flex items-center justify-center font-bold text-xl shadow-md shrink-0">
+                            최원혜
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900">최원혜 코치</h4>
+                                    <p class="text-xs sm:text-sm font-bold text-brand-blue mt-0.5">리스타트 코칭 파트너스 대표 코치</p>
+                                </div>
+                                <span class="text-xs bg-emerald-100/80 text-emerald-800 font-bold px-3 py-1.5 rounded-full">멘탈케어 & 루틴</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-gray-700 mt-3 leading-[1.8] break-keep">
+                                "마음의 근육은 매일의 작은 스위치에서 시작됩니다. 50일의 회복 루틴 동안 피드백과 코칭으로 당신의 내면이 단단해질 때까지 곁에서 함께 걸어가겠습니다."
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2 text-xs text-gray-500">
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-lg">#멘탈지수진단</span>
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-lg">#루틴코칭</span>
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-lg">#FT카드상담</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 코치 2 -->
+                <div class="bg-gray-50/80 border border-gray-200/80 rounded-2xl p-6 hover:border-brand-blue transition-all">
+                    <div class="flex items-start gap-5">
+                        <div class="w-16 h-16 rounded-2xl bg-[#1a2b4c] text-white flex items-center justify-center font-bold text-xl shadow-md shrink-0">
+                            김웅
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900">김웅 코치</h4>
+                                    <p class="text-xs sm:text-sm font-bold text-blue-600 mt-0.5">멘탈 트레이닝 & 리더십 수석코치</p>
+                                </div>
+                                <span class="text-xs bg-blue-100/80 text-blue-800 font-bold px-3 py-1.5 rounded-full">마인드셋 & 강화</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-gray-700 mt-3 leading-[1.8] break-keep">
+                                "부정적인 신념을 털어내고 강력한 실행력을 갖출 수 있도록 데이터 기반으로 동기를 부여해 드립니다. 성장 동력을 지속적으로 공급하겠습니다."
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2 text-xs text-gray-500">
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-lg">#21일강화훈련</span>
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-lg">#성공루틴</span>
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-lg">#회복탄력성</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 코치 3 -->
+                <div class="bg-gray-50/80 border border-gray-200/80 rounded-2xl p-6 hover:border-brand-blue transition-all">
+                    <div class="flex items-start gap-5">
+                        <div class="w-16 h-16 rounded-2xl bg-[#2d5a27] text-white flex items-center justify-center font-bold text-xl shadow-md shrink-0">
+                            손한나
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900">손한나 코치</h4>
+                                    <p class="text-xs sm:text-sm font-bold text-emerald-600 mt-0.5">감정 코칭 & 라포 케어 전문 코치</p>
+                                </div>
+                                <span class="text-xs bg-teal-100/80 text-teal-800 font-bold px-3 py-1.5 rounded-full">감정자각 & 경청</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-gray-700 mt-3 leading-[1.8] break-keep">
+                                "말하기 힘든 감정도 솔직하게 마주할 수 있도록 따뜻하고 깊은 경청으로 함께합니다. 당신의 숨은 강점을 끌어내 드리겠습니다."
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2 text-xs text-gray-500">
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-lg">#FT카드전문</span>
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-lg">#감정표현</span>
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-lg">#밀착상담</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-5 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <span class="text-xs text-gray-400">문의: 052-700-0429 | onmentalon@gmail.com</span>
+                <button onclick="closeModal('coachProfiles'); switchView('checkout');" class="w-full sm:w-auto bg-brand-blue text-white font-bold py-3 px-6 rounded-xl text-sm hover:bg-brand-blueHover transition">
+                    1:1 코칭 포함 플랜 신청하기
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- 커스텀 알림창 -->
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 z-[60] flex items-center justify-center hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal('auth')"></div>
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm mx-4 relative z-10 p-8 modal-content-transition transform scale-95 opacity-0 text-center">
+            <button onclick="closeModal('auth')" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-2xl font-black text-gray-900 mb-2">로그인</h3>
+            <p class="text-sm text-gray-500 mb-6 leading-relaxed">멘탈온 서비스 이용을 위해 로그인해주세요.</p>
+            
+            <form id="authForm" class="space-y-4 text-left" onsubmit="event.preventDefault(); handleLogin();">
+                <div>
+                    <input type="text" id="login-name" required placeholder="이름을 입력하세요" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-brand-blue outline-none text-sm">
+                </div>
+                <div>
+                    <input type="tel" id="login-phone" required placeholder="휴대폰 번호 (-없이 입력)" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-brand-blue outline-none text-sm">
+                </div>
+                <button type="submit" class="w-full bg-gray-900 text-white font-bold py-3.5 rounded-xl mt-2 text-sm hover:bg-gray-800 transition">시작하기</button>
+            </form>
+            
+            <div class="mt-6 text-xs text-gray-400 leading-relaxed">
+                테스트용입니다. 성함과 번호를 입력하면 바로 입장됩니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Alert -->
     <div id="customAlert" class="fixed inset-0 z-[70] flex items-center justify-center hidden">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 relative z-10 p-6 text-center transform scale-95 transition-transform duration-200" id="customAlertBox">
+        <div class="bg-white rounded-3xl shadow-xl w-full max-w-xs mx-4 relative z-10 p-7 text-center transform scale-95 transition-transform duration-200" id="customAlertBox">
             <div id="customAlertIcon" class="mx-auto flex items-center justify-center h-12 w-12 rounded-full mb-4"></div>
-            <h3 id="customAlertTitle" class="ui-gothic text-lg font-bold text-gray-900 mb-2">알림</h3>
-            <p id="customAlertMessage" class="text-sm text-gray-500 font-serif break-keep"></p>
-            <button onclick="closeCustomAlert()" class="mt-6 ui-gothic w-full py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-blue-600">확인</button>
+            <h3 id="customAlertTitle" class="text-lg font-bold text-gray-900 mb-2">알림</h3>
+            <p id="customAlertMessage" class="text-sm text-gray-600 break-keep leading-relaxed"></p>
+            <button onclick="closeCustomAlert()" class="mt-6 w-full py-3 bg-gray-900 text-white rounded-xl font-bold hover:bg-gray-800 text-sm">확인</button>
         </div>
     </div>
 
     <script>
-        function showAlert(type, title, message) {
+        const plans = {
+            free: { name: '1주일 무료 체험', original: '0 원', discount: '0 원', period: '7일', total: '0 원', price: 0 },
+            basic: { name: '10일 단기 케어', original: '20,000 원', discount: '- 10,000 원', period: '10일', total: '10,000 원', price: 10000 },
+            standard: { name: '50일 루틴 패키지', original: '80,000 원', discount: '- 30,000 원', period: '50일', total: '50,000 원', price: 50000 },
+            premium: { name: '50일 밀착 케어 + 코칭 5회', original: '250,000 원', discount: '- 50,000 원', period: '50일', total: '200,000 원', price: 200000 }
+        };
+        let currentSelectedPlan = 'premium';
+
+        function switchView(viewName) {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-checkout').classList.add('hidden');
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function updatePlanSelection(planKey) {
+            currentSelectedPlan = planKey;
+            const plan = plans[planKey];
+            document.getElementById('summary-name').textContent = plan.name;
+            document.getElementById('summary-price').textContent = plan.original;
+            document.getElementById('summary-discount').textContent = plan.discount;
+            document.getElementById('summary-period').textContent = plan.period;
+            document.getElementById('summary-total').textContent = plan.total;
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId === 'auth' ? 'authModal' : modalId + 'Modal');
+            if(!modal) return;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                const content = modal.querySelector('.modal-content-transition');
+                if (content) content.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openCoachProfilesModal() {
+            openModal('coachProfiles');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId === 'auth' ? 'authModal' : modalId + 'Modal');
+            if(!modal) return;
+            const content = modal.querySelector('.modal-content-transition');
+            if (content) content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+            document.body.style.overflow = '';
+        }
+
+        function handleLogin() {
+            const name = document.getElementById('login-name').value;
+            const phone = document.getElementById('login-phone').value;
+            
+            if(!name || !phone) return;
+
+            const user = { name: name, phone: phone, tier: 'free' };
+            localStorage.setItem('mentalon_user', JSON.stringify(user));
+            
+            closeModal('auth');
+            customAlert('로그인 성공', `${name}님 환영합니다!`, 'success');
+            updateAuthState();
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('mentalon_user');
+            updateAuthState();
+            customAlert('로그아웃', '정상적으로 로그아웃 되었습니다.', 'info');
+            switchView('home');
+        }
+
+        function updateAuthState() {
+            const userStr = localStorage.getItem('mentalon_user');
+            const desktopContainer = document.getElementById('auth-desktop-container');
+            const lockIcons = document.querySelectorAll('.auth-lock-icon');
+            
+            if(userStr) {
+                const user = JSON.parse(userStr);
+                const badge = user.tier === 'premium' 
+                    ? `<span class="bg-brand-blue text-white text-[10px] px-2 py-0.5 rounded-md mr-2 font-bold">PRO</span>`
+                    : `<span class="bg-gray-600 text-white text-[10px] px-2 py-0.5 rounded-md mr-2 font-bold">FREE</span>`;
+
+                desktopContainer.innerHTML = `
+                    <div class="ml-4 flex items-center">
+                        ${badge}
+                        <span class="text-white font-bold text-sm mr-4">${user.name}님</span>
+                        <button onclick="handleLogout()" class="text-gray-400 hover:text-white transition text-xs border border-gray-700 px-3 py-1.5 rounded-full hover:bg-gray-800">로그아웃</button>
+                    </div>
+                `;
+                
+                if(user.tier === 'premium') {
+                    lockIcons.forEach(el => {
+                        el.innerHTML = '<i class="fas fa-unlock text-brand-blue text-sm opacity-50"></i>';
+                        el.classList.replace('text-gray-300', 'text-brand-blue');
+                    });
+                }
+            } else {
+                desktopContainer.innerHTML = `
+                    <button onclick="openModal('auth')" class="text-sm text-gray-900 bg-white hover:bg-gray-100 px-5 py-2 rounded-xl font-bold transition ml-4 shadow-sm">로그인</button>
+                `;
+                lockIcons.forEach(el => {
+                    el.innerHTML = '<i class="fas fa-lock text-sm"></i>';
+                    el.classList.replace('text-brand-blue', 'text-gray-300');
+                });
+            }
+        }
+
+        function handleAppClick(appName, url) {
+            const userStr = localStorage.getItem('mentalon_user');
+            if(!userStr) {
+                customAlert('로그인 필요', '대시보드 이용을 위해 먼저 로그인 해주세요.', 'info');
+                openModal('auth');
+                return;
+            }
+            
+            const user = JSON.parse(userStr);
+            if(user.tier === 'premium') {
+                const targetUrl = new URL(url);
+                targetUrl.searchParams.append('name', user.name);
+                targetUrl.searchParams.append('phone', user.phone);
+                targetUrl.searchParams.append('tier', user.tier);
+                window.open(targetUrl.toString(), '_blank');
+            } else {
+                customAlert('이용권 안내', '유료 멤버십 전용 기능입니다. 결제 페이지로 이동합니다.', 'info');
+                setTimeout(() => switchView('checkout'), 2000);
+            }
+        }
+
+        function processPayment() {
+            if(!document.getElementById('agreeCheckout').checked) {
+                customAlert('알림', '결제 필수 약관에 동의해주세요.', 'error');
+                return;
+            }
+            
+            const plan = plans[currentSelectedPlan];
+
+            if(plan.price === 0) {
+                let userStr = localStorage.getItem('mentalon_user');
+                if(!userStr) {
+                    customAlert('로그인 필요', '무료 체험을 신청하려면 먼저 로그인 해주세요.', 'info');
+                    openModal('auth');
+                    return;
+                }
+                
+                let user = JSON.parse(userStr);
+                user.tier = 'premium';
+                localStorage.setItem('mentalon_user', JSON.stringify(user));
+                
+                customAlert('무료 체험 시작', '1주일 체험이 활성화되었습니다! 대시보드를 확인해보세요.', 'success');
+                updateAuthState();
+                setTimeout(() => switchView('home'), 2000);
+                return;
+            }
+
+            const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
+            const tossPayments = TossPayments(clientKey);
+            const orderId = 'ORDER_' + new Date().getTime();
+
+            tossPayments.requestPayment('카드', {
+                amount: plan.price,
+                orderId: orderId,
+                orderName: plan.name,
+                customerName: '멘탈온고객',
+                successUrl: window.location.origin + window.location.pathname + '?pay=success',
+                failUrl: window.location.origin + window.location.pathname + '?pay=fail',
+            }).catch(function (error) {
+                if (error.code === 'USER_CANCEL') {
+                    customAlert('결제 취소', '결제를 취소하셨습니다.', 'info');
+                } else {
+                    customAlert('결제 에러', error.message, 'error');
+                }
+            });
+        }
+
+        function customAlert(title, message, type = 'info') {
             const alertEl = document.getElementById('customAlert');
             const boxEl = document.getElementById('customAlertBox');
             const iconEl = document.getElementById('customAlertIcon');
+            
             document.getElementById('customAlertTitle').textContent = title;
             document.getElementById('customAlertMessage').textContent = message;
 
             if (type === 'success') {
-                iconEl.className = 'mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4';
-                iconEl.innerHTML = `<svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
+                iconEl.className = 'mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mb-4 text-2xl';
+                iconEl.innerHTML = '<i class="fas fa-check"></i>';
             } else if (type === 'error') {
-                iconEl.className = 'mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4';
-                iconEl.innerHTML = `<svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`;
+                iconEl.className = 'mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 text-red-600 mb-4 text-2xl';
+                iconEl.innerHTML = '<i class="fas fa-times"></i>';
             } else {
-                iconEl.className = 'mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 mb-4';
-                iconEl.innerHTML = `<svg class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
+                iconEl.className = 'mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-brand-blue mb-4 text-2xl';
+                iconEl.innerHTML = '<i class="fas fa-info"></i>';
             }
+            
             alertEl.classList.remove('hidden');
             setTimeout(() => boxEl.classList.remove('scale-95'), 10);
         }
+
         function closeCustomAlert() {
             document.getElementById('customAlertBox').classList.add('scale-95');
             setTimeout(() => document.getElementById('customAlert').classList.add('hidden'), 200);
         }
 
-        let isLoginMode = false;
-        
-        function getAuthData() {
-            return JSON.parse(localStorage.getItem('mentalon_user'));
-        }
-        function saveAuthData(data) {
-            localStorage.setItem('mentalon_user', JSON.stringify(data));
-            renderNav();
-            updateAppLocks();
-        }
-        function handleLogout() {
-            localStorage.removeItem('mentalon_user');
-            closeMyPageModal();
-            renderNav();
-            updateAppLocks();
-            showAlert('success', '로그아웃', '정상적으로 로그아웃 되었습니다.');
-        }
-
-        function renderNav() {
-            const user = getAuthData();
-            const navArea = document.getElementById('nav-auth-area');
-            if (user) {
-                const tierBadge = user.tier === 'premium' 
-                    ? `<span class="bg-brand-yellow/20 text-yellow-700 text-[10px] px-1.5 py-0.5 rounded mr-1">유료</span>` 
-                    : `<span class="bg-gray-100 text-gray-500 text-[10px] px-1.5 py-0.5 rounded mr-1">무료</span>`;
-                navArea.innerHTML = `
-                    <button onclick="openMyPageModal()" class="flex items-center gap-2 hover:bg-gray-50 px-3 py-1.5 rounded-lg transition-colors">
-                        ${tierBadge}
-                        <span class="text-sm font-bold text-gray-800">${user.name}님</span>
-                        <div class="w-7 h-7 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xs">${user.name.charAt(0)}</div>
-                    </button>
-                `;
-            } else {
-                navArea.innerHTML = `
-                    <button onclick="openAuthModal(false)" class="text-sm font-bold text-gray-600 hover:text-brand-blue px-3 py-2">로그인</button>
-                    <button onclick="openAuthModal(true)" class="text-sm font-bold bg-brand-dark text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">회원가입</button>
-                `;
-            }
-        }
-
-        function updateAppLocks() {
-            const user = getAuthData();
-            const badges = document.querySelectorAll('.premium-lock-badge');
-            
-            badges.forEach(badge => {
-                if (user && user.tier === 'premium') {
-                    badge.className = 'premium-lock-badge absolute top-4 right-4 bg-blue-50 text-brand-blue text-[10px] font-black px-2 py-1 rounded flex items-center gap-1 ui-gothic transition-colors';
-                    badge.innerHTML = `<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg><span>Unlocked</span>`;
-                } else {
-                    badge.className = 'premium-lock-badge absolute top-4 right-4 bg-gray-100/80 text-gray-500 text-[10px] font-black px-2 py-1 rounded flex items-center gap-1 ui-gothic transition-colors';
-                    badge.innerHTML = `<svg class="w-3 h-3 lock-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg><span>Premium</span>`;
-                }
-            });
-        }
-
-        function checkAuthAndRedirect(url) {
-            const user = getAuthData();
-            if (!user) {
-                showAlert('warning', '로그인 필요', '해당 기능은 멘탈온 회원 전용입니다. 로그인 후 이용해 주세요.');
-                setTimeout(() => openAuthModal(false), 1500);
-            } else if (user.tier !== 'premium') {
-                showAlert('warning', '프리미엄 전용', '유료 회원 전용 콘텐츠입니다. 이용권 구매 후 사용하실 수 있습니다.');
-            } else {
-                window.open(url, '_blank');
-            }
-        }
-
-        function openAuthModal(isSignup = false) {
-            isLoginMode = !isSignup;
-            const modal = document.getElementById('authModal');
-            document.getElementById('authModalTitle').textContent = isLoginMode ? '로그인' : '회원가입';
-            document.getElementById('authModalDesc').textContent = isLoginMode ? '가입하신 이름과 전화번호를 입력하세요' : '멘탈온 코칭 앱 사용을 위한 정보 입력';
-            document.getElementById('authToggleBtn').textContent = isLoginMode ? '계정이 없으신가요? 회원가입' : '이미 계정이 있으신가요? 로그인';
-            
-            document.getElementById('authForm').reset();
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.querySelector('.modal-content-transition').classList.remove('scale-95', 'opacity-0'), 10);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeAuthModal() {
-            const modal = document.getElementById('authModal');
-            modal.querySelector('.modal-content-transition').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-            document.body.style.overflow = '';
-        }
-
-        function toggleAuthMode() { openAuthModal(isLoginMode); }
-
-        document.getElementById('authForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('authName').value;
-            const phone = document.getElementById('authPhone').value;
-            let tier = 'free'; 
-            
-            if (isLoginMode) {
-                const existing = getAuthData();
-                if(!existing || existing.name !== name || existing.phone !== phone) {
-                     tier = 'free'; 
-                } else {
-                    tier = existing.tier;
-                }
-            }
-
-            saveAuthData({ name, phone, tier });
-            closeAuthModal();
-            showAlert('success', isLoginMode ? '로그인 성공' : '가입 완료', `${name}님 환영합니다!`);
-        });
-
-        function openMyPageModal() {
-            const user = getAuthData();
-            if(!user) return;
-            
-            document.getElementById('myPageName').textContent = `${user.name}님`;
-            document.getElementById('myPagePhone').textContent = user.phone;
-            document.getElementById('myPageAvatar').textContent = user.name.charAt(0);
-            
-            const tierDisplay = document.getElementById('myPageTierDisplay');
-            const upgradeSection = document.getElementById('upgradeSection');
-
-            if(user.tier === 'premium') {
-                tierDisplay.innerHTML = `<svg class="w-5 h-5 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg><span class="text-brand-yellow">Premium (유료)</span>`;
-                upgradeSection.classList.add('hidden');
-            } else {
-                tierDisplay.innerHTML = `<span class="text-gray-500">Free (무료)</span>`;
-                upgradeSection.classList.remove('hidden');
-            }
-
-            const modal = document.getElementById('myPageModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.querySelector('.modal-content-transition').classList.remove('scale-95', 'opacity-0'), 10);
-            document.body.style.overflow = 'hidden';
-        }
-        function closeMyPageModal() {
-            const modal = document.getElementById('myPageModal');
-            modal.querySelector('.modal-content-transition').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-            document.body.style.overflow = '';
-        }
-
-        function applyPromoCode() {
-            const code = document.getElementById('promoCodeInput').value.trim().toUpperCase();
-            if(code === 'VIP2026' || code === 'MENTALON') { 
-                const user = getAuthData();
-                if(user) {
-                    user.tier = 'premium';
-                    saveAuthData(user);
-                    openMyPageModal();
-                    showAlert('success', '업그레이드 완료!', '프리미엄 회원으로 승급되었습니다. 이제 모든 앱의 자물쇠가 풀립니다.');
-                    document.getElementById('promoCodeInput').value = '';
-                }
-            } else {
-                showAlert('error', '코드 오류', '유효하지 않은 프로모션 코드입니다. 코드를 다시 확인해 주세요.');
-            }
-        }
-
-        const NOTICE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxybtvVLEg-dXxev7ibmLfsbol3oeh6dTls6rdulBXgiUUelUaj016-IlU_VQACD2E5/exec'; 
-
-        function openNoticeModal() {
-            const modal = document.getElementById('noticeModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.querySelector('.modal-content-transition').classList.remove('scale-95', 'opacity-0'), 10);
-            document.body.style.overflow = 'hidden';
-            loadNotices();
-        }
-
-        function closeNoticeModal() {
-            const modal = document.getElementById('noticeModal');
-            modal.querySelector('.modal-content-transition').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-            document.body.style.overflow = '';
-        }
-
-        function loadNotices() {
-            const container = document.getElementById('noticeListContainer');
-            container.innerHTML = `
-                <div class="flex flex-col items-center justify-center py-12 opacity-60">
-                    <svg class="animate-spin h-8 w-8 text-brand-blue mb-3" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                    <span class="text-sm font-bold ui-gothic">공지사항을 불러오는 중...</span>
-                </div>
-            `;
-
-            fetch(NOTICE_SCRIPT_URL)
-                .then(res => res.json())
-                .then(data => renderNoticeList(data))
-                .catch(err => {
-                    container.innerHTML = '<div class="text-center py-10 text-gray-500 text-sm">공지사항을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</div>';
-                });
-        }
-
-        function renderNoticeList(data) {
-            const container = document.getElementById('noticeListContainer');
-            if (!data || data.length === 0) {
-                container.innerHTML = '<div class="text-center py-10 text-gray-500 text-sm">등록된 공지사항이 없습니다.</div>';
-                return;
-            }
-
-            container.innerHTML = `<div class="space-y-3">` + data.map((n, i) => `
-                <details class="bg-white rounded-xl border border-gray-200 shadow-sm group" ${i === 0 ? 'open' : ''}>
-                    <summary class="p-4 md:p-5 ui-gothic cursor-pointer flex justify-between items-center hover:bg-gray-50 transition-colors rounded-xl">
-                        <div class="flex items-center gap-3">
-                            ${n.isNew ? '<span class="bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded">NEW</span>' : ''}
-                            <span class="font-bold text-[14px] md:text-[15px] text-gray-800 break-keep leading-tight">${n.title}</span>
-                        </div>
-                        <div class="flex items-center gap-2 shrink-0 ml-2">
-                            <span class="text-xs text-gray-400 font-serif hidden sm:block">${n.date}</span>
-                            <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                    </summary>
-                    <div class="p-4 md:p-5 border-t border-gray-100 text-[14px] md:text-[15px] text-gray-600 leading-relaxed break-keep bg-white rounded-b-xl">
-                        ${n.content}
-                        ${n.attachmentUrl ? `
-                        <div class="mt-4 pt-3 border-t border-dashed border-gray-200">
-                            <a href="${n.attachmentUrl}" target="_blank" class="inline-flex items-center gap-1.5 text-[13.5px] font-bold text-brand-blue hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-2 rounded-lg transition-colors ui-gothic shadow-sm border border-blue-100">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                첨부파일 확인하기
-                            </a>
-                        </div>
-                        ` : ''}
-                    </div>
-                </details>
-            `).join('') + `</div>`;
-        }
-
-        function closePromoPopup() {
-            const popup = document.getElementById('promoPopup');
-            popup.querySelector('.modal-content-transition').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => popup.classList.add('hidden'), 300);
-            document.body.style.overflow = '';
-        }
-        function openWebinarModal() {
-            const modal = document.getElementById('webinarModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.querySelector('.modal-content-transition').classList.remove('scale-95', 'opacity-0'), 10);
-            document.body.style.overflow = 'hidden';
-        }
-        function closeWebinarModal() {
-            const modal = document.getElementById('webinarModal');
-            modal.querySelector('.modal-content-transition').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-            document.body.style.overflow = '';
-        }
-
-        const FORM_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyljal7HPfBfo84THGKCIbysfF8Pkbw3hI0XWdez8BCS1xN0z-soRpmX2EGkvmm4HMLQw/exec';
-        document.getElementById('applyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            const originalBtnText = submitBtn.innerHTML;
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '전송 중...';
-            submitBtn.classList.replace('bg-brand-dark', 'bg-gray-400');
-
-            const formData = {
-                name: document.getElementById('entryName').value,
-                org: document.getElementById('entryOrg').value,
-                phone: document.getElementById('entryPhone').value,
-                email: document.getElementById('entryEmail').value,
-                schedule: document.querySelector('input[name="schedule"]:checked').value,
-                textbook: document.getElementById('entryTextbook').value
-            };
-
-            fetch(FORM_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(formData) })
-            .then(() => {
-                closeWebinarModal();
-                showAlert('success', '신청 완료!', '성공적으로 접수되었습니다. 안내 문자를 발송해 드립니다.');
-                document.getElementById('applyForm').reset();
-            }).catch(() => showAlert('error', '전송 오류', '일시적인 오류가 발생했습니다.'))
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.classList.replace('bg-gray-400', 'bg-brand-dark');
-            });
-        });
-
-        const toolkitData = {
-            step0: { title: "리스타트온 성공루틴", subtitle: "ROUTINE", color: "gray-800", bgColor: "bg-gray-100", icon: `<svg class="w-12 h-12 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>`, image: "https://placehold.co/600x300/152C5B/FFFFFF?text=Success+Routine", description: "확언필사로 마인드셋을 다지고, 촘촘한 계획으로 모든 일정을 완벽하게 클리어 할 수 있도록 합니다. 자기계발과 자기관리에 최적화된 편리한 툴입니다.", features: ["아침/저녁 긍정 확언 필사 기능", "목표 달성을 위한 체계적인 데일리 스케줄링", "자기관리 데이터 누적 및 시각화"], appSync: "세션 후 일상으로 돌아간 고객이 스스로를 통제하고 목표를 향해 나아갈 수 있도록 강력한 자기주도적 환경을 제공합니다." },
-            step1: { title: "멘탈FT카드", subtitle: "CONNECTION", color: "brand-blue", bgColor: "bg-blue-50", icon: `<div class="w-12 h-12 border-4 border-brand-blue rounded-full"></div>`, image: "https://placehold.co/600x300/1D4ED8/FFFFFF?text=Mental+FT+Card", description: "고객의 무의식적 감정과 생각을 시각화하여, 첫 코칭 세션부터 깊은 라포를 형성하는 실물 카드 교재입니다.", features: ["아이스브레이킹 및 현재 감정 상태 퀵 체크", "주제별 핵심 가치 도출 및 코칭 목표 정렬", "대면/비대면 환경 제약 없는 범용성"], appSync: "카드에서 도출된 핵심 키워드를 앱의 '나의 다짐' 에 기록하여, 세션 이후에도 고객이 방향성을 잃지 않도록 연결합니다." },
-            step2: { title: "멘탈회복50일", subtitle: "MONITORING", color: "yellow-600", bgColor: "bg-yellow-50", icon: `<div class="w-12 h-12 bg-yellow-500 rounded-tl-full rounded-br-full"></div>`, image: "https://placehold.co/600x300/DCC34C/FFFFFF?text=50+Days+Routine", description: "주 1회 세션의 공백을 채우는 50일 데일리 루틴 앱입니다. 고객의 일상 데이터를 수집하여 지속적으로 모니터링합니다.", features: ["매일 멘탈온도계 및 감정 단어 기록", "고객 중도 이탈(Drop) 방지 밀착 케어", "코치의 실시간 대시보드 모니터링"], appSync: "고객이 앱에 기록한 감정 그래프와 키워드를 다음 코칭 세션의 오프닝 데이터로 즉시 활용합니다." },
-            step3: { title: "멘탈강화21일", subtitle: "DEEPENING", color: "green-600", bgColor: "bg-green-50", icon: `<div class="w-12 h-12 border-4 border-green-600"></div>`, image: "https://placehold.co/600x300/16a34a/FFFFFF?text=21+Days+Deepening", description: "기초 회복을 마친 고객을 위한 멘탈 심화 과제용 솔루션입니다. 집중 훈련을 통해 장기적인 관계로 발전시킵니다.", features: ["뇌과학 기반 3단계 멘탈 재설계 로드맵", "성찰 노트 작성 및 담당 코치 데이터 전송", "핵심 신념 재구성 및 행동 플랜 수립"], appSync: "고객의 심층적인 변화 과정을 앱을 통해 아카이빙하고 성공 사례 포트폴리오로 구축합니다." },
-            step4: { title: "멘탈지수검사", subtitle: "DIAGNOSIS", color: "purple-600", bgColor: "bg-purple-50", icon: `<div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center"><div class="w-4 h-4 bg-white rounded-full"></div></div>`, image: "https://placehold.co/600x300/9333ea/FFFFFF?text=Mental+Diagnosis", description: "코칭 시작 전과 후에 고객의 상태를 수치화하여 측정하는 객관적 도구입니다. 코칭 성과를 데이터로 입증합니다.", features: ["5대 영역 10개 항목 정밀 밸런스 측정", "결과 분석 리포트 및 맞춤형 코칭 팁 제공", "동년배 데이터 대비 상대적 위치 분석"], appSync: "앱에서 진단을 수행하면 리포트가 코치와 고객에게 즉시 공유되며, 재결제를 이끌어내는 근거가 됩니다." }
-        };
-
-        function openToolkitModal(step) {
-            const data = toolkitData[step];
-            document.getElementById('toolkitModalContent').innerHTML = `
-                <div class="${data.bgColor} p-8 text-center relative">
-                    <div class="flex justify-center mb-4 transform scale-75 opacity-50">${data.icon}</div>
-                    <p class="ui-gothic text-sm font-bold text-${data.color} tracking-widest mb-2">${data.subtitle}</p>
-                    <h3 class="ui-gothic text-2xl font-black text-gray-900">${data.title}</h3>
-                </div>
-                <div class="p-6 md:p-8">
-                    <img src="${data.image}" class="w-full rounded-xl mb-6 shadow-sm object-cover h-40">
-                    <p class="text-gray-700 text-[15px] md:text-base leading-relaxed font-medium mb-6 break-keep font-serif">${data.description}</p>
-                    <h4 class="ui-gothic text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">핵심 기능</h4>
-                    <ul class="space-y-2 mb-6 font-serif">${data.features.map(f => `<li class="flex items-start gap-2 text-gray-600 text-[14.5px]"><span class="text-${data.color} mt-0.5">•</span><span class="break-keep">${f}</span></li>`).join('')}</ul>
-                    <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                        <h4 class="ui-gothic text-[15px] font-bold text-gray-900 mb-2">O2O(앱) 연계 효과</h4>
-                        <p class="text-gray-600 text-[14px] leading-relaxed break-keep font-serif">${data.appSync}</p>
-                    </div>
-                </div>
-            `;
-            const modal = document.getElementById('toolkitModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.querySelector('.modal-content-transition').classList.remove('scale-95', 'opacity-0'), 10);
-            document.body.style.overflow = 'hidden';
-        }
-        function closeToolkitModal() {
-            const modal = document.getElementById('toolkitModal');
-            modal.querySelector('.modal-content-transition').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-            document.body.style.overflow = '';
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
-            renderNav();
-            updateAppLocks();
-            
-            if(!sessionStorage.getItem('promo_seen')) {
+            updateAuthState();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('pay') === 'success') {
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+                let userStr = localStorage.getItem('mentalon_user');
+                if(userStr) {
+                    let user = JSON.parse(userStr);
+                    user.tier = 'premium';
+                    localStorage.setItem('mentalon_user', JSON.stringify(user));
+                    updateAuthState();
+                } else {
+                    localStorage.setItem('mentalon_user', JSON.stringify({name: '고객', phone: '01000000000', tier: 'premium'}));
+                    updateAuthState();
+                }
+
+                customAlert('결제 성공!', '프리미엄 멤버십이 활성화되었습니다. 대시보드에서 앱을 사용해보세요.', 'success');
                 setTimeout(() => {
-                    const popup = document.getElementById('promoPopup');
-                    popup.classList.remove('hidden');
-                    setTimeout(() => popup.querySelector('.modal-content-transition').classList.remove('scale-95', 'opacity-0'), 10);
-                    document.body.style.overflow = 'hidden';
-                    sessionStorage.setItem('promo_seen', 'true');
-                }, 1500);
+                    switchView('home');
+                    document.getElementById('dashboard-section').scrollIntoView({behavior:'smooth'});
+                }, 2500);
+            } else if (urlParams.get('pay') === 'fail') {
+                window.history.replaceState({}, document.title, window.location.pathname);
+                customAlert('결제 실패', '결제 과정에서 문제가 발생했습니다. 다시 시도해주세요.', 'error');
+                switchView('checkout');
             }
         });
     </script>
